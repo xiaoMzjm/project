@@ -128,7 +128,11 @@ public class MyTest {
 
     public static void main(String[] args) {
 
-
-
+        MyTest myTest = new MyTest();
+        myTest.普通KV对存储();
+        myTest.二级KV对存储();
+        myTest.队列();
+        myTest.Set();
+        myTest.ZSet();
     }
 }
