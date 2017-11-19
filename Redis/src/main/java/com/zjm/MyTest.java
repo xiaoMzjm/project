@@ -2,11 +2,11 @@ package com.zjm;
 
 import java.util.HashMap;
 import java.util.List;
-
-import javax.swing.*;
-
 import java.util.Map;
+
+import com.sun.prism.shader.DrawPgram_ImagePattern_Loader;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Pipeline;
 
 /**
  * @author:黑绝
@@ -19,7 +19,7 @@ public class MyTest {
     /*==================================================================*/
     private void 普通KV对存储(){
 
-        Jedis jedis = JedisUtil.jedis;
+        Jedis jedis = JedisUtil.getJedis();
 
         jedis.set("name" , "zjm");// 设置一个K-V
 
@@ -39,7 +39,7 @@ public class MyTest {
     /*==================================================================*/
     private void 二级KV对存储(){
 
-        Jedis jedis = JedisUtil.jedis;
+        Jedis jedis = JedisUtil.getJedis();
 
         // url 为一级 key ，google , taobao , sina 为二级 key
         jedis.hset("url" , "google" , "www.google.cn");
@@ -60,6 +60,8 @@ public class MyTest {
 
         // 指定多个二级key 获取 value
         jedis.hmget("url" , "baidu" , "qq");
+
+        jedis.close();
     }
 
     /*==================================================================*/
@@ -67,7 +69,7 @@ public class MyTest {
     /*==================================================================*/
     private void 队列(){
 
-        Jedis jedis = JedisUtil.jedis;
+        Jedis jedis = JedisUtil.getJedis();
 
         // 在队列首添加元素
         jedis.lpush("myList" , "a");
@@ -87,6 +89,8 @@ public class MyTest {
         // 获得队列大小
         jedis.llen("myList");
 
+        jedis.close();
+
     }
 
     /*==================================================================*/
@@ -94,7 +98,7 @@ public class MyTest {
     /*==================================================================*/
     private void Set(){
 
-        Jedis jedis = JedisUtil.jedis;
+        Jedis jedis = JedisUtil.getJedis();
 
         // 添加元素
         jedis.sadd("mySet" , "a");
@@ -105,6 +109,8 @@ public class MyTest {
 
         // 获取所有元素
         jedis.smembers("mySet");
+
+        jedis.close();
     }
 
     /*==================================================================*/
@@ -112,7 +118,7 @@ public class MyTest {
     /*==================================================================*/
     private void ZSet(){
 
-        Jedis jedis = JedisUtil.jedis;
+        Jedis jedis = JedisUtil.getJedis();
 
         // 在指定位置添加元素
         jedis.zadd("mySortSet" , 1 , "a");
@@ -124,7 +130,82 @@ public class MyTest {
 
         // 获取指定位置的元素集合，反向
         jedis.zrevrange("mySortSet" , 1 , 3);
+
+        jedis.close();
     }
+
+
+    /*==================================================================*/
+    /*                  pipeline                                         */
+    /*==================================================================*/
+    /**
+     * 借助pipeline封装mdel院子操作
+     */
+    public void pipeline_mdel(){
+
+        String[] keys = new String[]{ "key1" , "key2" };
+
+        Jedis jedis = JedisUtil.getJedis();
+
+        Pipeline pipeline = jedis.pipelined();
+
+        for(String key : keys) {
+            pipeline.del(keys);
+        }
+
+        List<Object> results = pipeline.syncAndReturnAll();
+
+        for(Object result : results) {
+            //System.out.println(result);
+        }
+    }
+
+    /*==================================================================*/
+    /*                  lua                                             */
+    /*==================================================================*/
+    public void lua_eval(){
+
+        String luaShell = "return \"helow world \" .. KEYS[1] .. ARGV[1]";
+
+        Integer keyNum = 1;
+        
+        String key = "redis";
+
+        String argv = "!";
+        
+        Jedis jedis = JedisUtil.getJedis();
+
+        Object result = jedis.eval(luaShell, keyNum, key , argv);
+
+        //System.out.println(result);
+
+        jedis.close();
+    }
+
+    /**
+     * 把脚本先加载到服务武中
+     */
+    public void lua_eval_load(){
+
+        String luaShell = "return \"helow world \" .. KEYS[1] .. ARGV[1]";
+
+        Integer keyNum = 1;
+
+        String key = "redis";
+
+        String argv = "!";
+
+        Jedis jedis = JedisUtil.getJedis();
+
+        String scriptSha = jedis.scriptLoad(luaShell);
+
+        Object result = jedis.evalsha(scriptSha, keyNum, key, argv);
+
+        System.out.println(result);
+
+        jedis.close();
+    }
+
 
     public static void main(String[] args) {
 
@@ -134,5 +215,8 @@ public class MyTest {
         myTest.队列();
         myTest.Set();
         myTest.ZSet();
+        myTest.pipeline_mdel();
+        myTest.lua_eval();
+        myTest.lua_eval_load();
     }
 }
