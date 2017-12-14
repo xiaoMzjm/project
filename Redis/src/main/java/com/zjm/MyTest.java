@@ -7,6 +7,7 @@ import java.util.Map;
 import com.sun.prism.shader.DrawPgram_ImagePattern_Loader;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
+import redis.clients.jedis.Transaction;
 
 /**
  * @author:ºÚ¾ø
@@ -201,9 +202,53 @@ public class MyTest {
 
         Object result = jedis.evalsha(scriptSha, keyNum, key, argv);
 
-        System.out.println(result);
+        //System.out.println(result);
 
         jedis.close();
+    }
+
+    /*==================================================================*/
+    /*                  multi                                           */
+    /*==================================================================*/
+    public void multi(){
+
+        Jedis jedis = JedisUtil.getJedis();
+
+        Transaction tx = jedis.multi();
+
+        tx.set("multi_key1" , "multi_value1");
+
+        tx.set("multi_key2" , "multi_value2");
+
+        tx.exec();
+
+        //System.out.println(jedis.get("multi_key1"));
+
+        //System.out.println(jedis.get("multi_key2"));
+
+        jedis.close();
+    }
+
+    /*==================================================================*/
+    /*                  watch                                           */
+    /*==================================================================*/
+    public void watch(){
+
+        Jedis jedis = JedisUtil.getJedis();
+
+        jedis.set("watch_key" , "watch_value");
+
+        jedis.watch("watch_key");
+
+        Transaction tx = jedis.multi();
+
+        tx.set("watch_key" , "watch_value_change");
+
+        tx.exec();
+
+        jedis.unwatch();
+
+        //System.out.println(jedis.get("watch_key"));
     }
 
 
@@ -218,5 +263,7 @@ public class MyTest {
         myTest.pipeline_mdel();
         myTest.lua_eval();
         myTest.lua_eval_load();
+        myTest.multi();
+        myTest.watch();
     }
 }

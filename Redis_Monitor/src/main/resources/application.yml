@@ -1,0 +1,29 @@
+server:
+  port: 80
+  tomcat:
+    uri-encoding: UTF-8
+
+management:
+  port: 7002
+
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+
+
+velocimacro:
+  library:
+    autoreload : true
+
+
+
+file:
+  resource:
+    loader:
+      cache :m false
