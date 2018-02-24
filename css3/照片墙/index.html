@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        <meta charset="UTF-8">		
+        <style>
+            .father{
+                width:500px;
+            }
+            #imgWrap{
+                height:240px;
+
+                /*以下三个属性的组合实现了当前元素的水平居中（相对父元素）*/
+                width:240px;
+                margin-left:auto;
+                margin-right:auto;
+
+                /* 景深，眼镜离物体的距离，景深越大，物体越小*/
+                perspective:800px;
+            }
+            #imgWrap img{
+                float:left;
+                width:80px;
+                height:80px;
+            }
+            #btn{
+                /*以下三个属性的组合实现了当前元素的水平居中（相对父元素）*/
+                width:100px;
+                margin-left:auto;
+                margin-right:auto;
+
+                text-align: center;
+
+                /* 16是字体大小,40是行高，行高有垂直居中的效果 */
+                font: 16px/40px "微软雅黑";
+
+                color:#fff;
+
+                /*0是上下 20是左右*/
+                padding:0 20px;
+
+                background-color: rgb(0,100,0);
+                margin-top:100px;
+                border-radius: 5px;
+                box-shadow:2px 2px 5px rgba(0,0,0,0.5);
+            }
+        </style>		
+        <script>
+            /*
+            * 运动步骤：
+            * 1、闪的效果（瞬间宽高都变为0,scal，随机）
+            * 2、图片从小变大，透明度从·变成0（必须是上一步效果走完了，它才会走）
+            * 3、图片旋转，透明度从0变成1，有远近层次感（位移tanslate）（当所偶遇图透明度都变味0的时候，才会走这一步）
+            */
+            window.onload=function(){
+                let btn = document.getElementById("btn");
+                let imgs = document.querySelectorAll("img");
+                // 用来判断所有的图片是否都运动完成
+                let allEnd = 0;
+                // 这个变量用来决定用户是否可以再次点击
+                let on=true;
+
+                btn.onclick=function(){
+                    if(!on) {
+                        return;
+                    }
+                    on = false;
+                    allEnd = 0;
+                    // 保存运动完成的图片的数量
+                    let endNum = 0;
+                    
+
+                    for(let i = 0 ; i < imgs.length ; i++) {
+                        
+                        // 借助setTimeout，使每张图片的动画效果不同时执行
+                        setTimeout(function(){
+                        
+                            // 动画时长 
+                            imgs[i].style.transition='1s';
+                            
+                            montion(imgs[i],'500ms',function(){
+                                // 动画，scale为缩放动画，0代表缩小到0像素
+                                this.style.transform='scale(0)';
+                            },
+                            // 第二个运动效果，在第一个效果走完才会走
+                            function(){
+                                montion(this,'1s',function(){
+                                    this.style.transform='scale(1)';
+                                    this.style.opacity=0;
+                                },
+                                // 第三个运动效果
+                                function(){
+                                    endNum++;
+                                    if(endNum==imgs.length) {
+                                        toBig();
+                                    }
+                                });
+                            });
+
+                        },
+                        // Math.random是0~1的随机数
+                        Math.random()*1000);
+                    }
+                }
+
+                // 这个函数用来实现第三个运动效果
+                function toBig(){
+                    /**
+                    * 坐标轴
+                    * x轴是平行地面
+                    * y轴是垂直地面
+                    * z轴是垂直屏幕
+                    */
+                    for(let i = 0 ; i < imgs.length; i++) {
+                        imgs[i].style.transition='';
+                        // 原来的景深perspective是800，现在translate位移到500，所以近了，即变大
+                        // 想要一个物体有css3当中的一些变化，那就需要给他一个初始值,这里是赋初始值，不是真正的动画
+                        imgs[i].style.transform='rotateY(0deg)translateZ(-'+Math.random()*500+'px)';
+                    
+                        setTimeout(function(){
+                            montion(imgs[i],'2s',function(){
+                                this.style.opacity=1;
+                                this.style.transform='rotateY(-360deg)translateZ(0px)';
+                            },function(){
+                                allEnd++;
+                                if(allEnd==imgs.length) {
+                                    on=true;
+                                }
+                            });
+                        },Math.random()*1000);
+                    }
+
+                }
+
+                // 运动函数（运动对象，运动时间，运动的属性函数，运动完成后要做的事情）
+                function montion(obj , time, doFn, callBack) {
+                    obj.style.transition=time;
+                    // 函数.call(obj)：调用函数，且在函数中，this会指向obj
+                    doFn.call(obj);
+                    let called = false;
+                    obj.addEventListener('transitionend',function(){
+                        if(!called) {
+                            // 防止callBack为空
+                            callBack && callBack.call(obj);
+                            called=true;
+                        }
+                    },false);
+                }
+            }
+        </script>		
+    </head>
+    
+    <body>
+        <div class="father">
+            <div id="imgWrap">
+                <img src="images/1.png" alt=""/>
+                <img src="images/1.png" alt=""/>
+                <img src="images/1.png" alt=""/>
+                <img src="images/1.png" alt=""/>
+                <img src="images/1.png" alt=""/>
+                <img src="images/1.png" alt=""/>
+                <img src="images/1.png" alt=""/>
+                <img src="images/1.png" alt=""/>
+                <img src="images/1.png" alt=""/>
+            </div>
+            <div id="btn">点击查看效果</div>
+        </div>
+    </body>
+</html>
