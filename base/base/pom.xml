@@ -67,6 +67,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- jar部署 -->
+					<!-- 1. mvn clean package -Dmaven.test.skip=true -->
+					<!-- 2. java -jar base-0.0.1-SNAPSHOT.jar -->
+					<executable>true</executable>
+					<mainClass>com.zjm.base.BaseApplication</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
