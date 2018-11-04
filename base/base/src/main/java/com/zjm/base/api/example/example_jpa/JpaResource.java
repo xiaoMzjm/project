@@ -1,4 +1,4 @@
-package com.zjm.base.api.jpa_example;
+package com.zjm.base.api.example.example_jpa;
 
 import java.util.ArrayList;
 import java.util.List;

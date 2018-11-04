@@ -18,7 +18,6 @@ public class BaseResource {
 
 
     @ApiOperation(value = "hello接口" , notes = "hello")
-    @ApiImplicitParam(value = "姓名" , name = "name" , required = true , dataType = "string")
     @RequestMapping(value = "/hello/{name}" , method = RequestMethod.POST)
     public String hello(@PathVariable String name){
         return "hello " + name ;
