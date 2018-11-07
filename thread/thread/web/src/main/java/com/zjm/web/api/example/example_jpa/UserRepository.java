@@ -1,4 +1,4 @@
-package com.zjm.base.api.jpa_example;
+package com.zjm.web.api.example.example_jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

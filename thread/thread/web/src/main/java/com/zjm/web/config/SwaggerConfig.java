@@ -1,8 +1,7 @@
-package com.zjm.base.config;
+package com.zjm.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -24,7 +23,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
             .apiInfo(apiInfo())
             .select()
-            .apis(RequestHandlerSelectors.basePackage("com.zjm.base.api"))
+            .apis(RequestHandlerSelectors.basePackage("com.zjm.web.api"))
             .paths(PathSelectors.any())
             .build();
     }
