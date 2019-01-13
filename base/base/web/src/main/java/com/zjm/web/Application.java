@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @ComponentScan("com.zjm")
-@EnableJpaRepositories("com.zjm.dao.repository")
-@EntityScan("com.zjm.dao.model")
+@EnableJpaRepositories("com.zjm.dao")
+@EntityScan("com.zjm.dao")
 @EnableTransactionManagement
 public class Application {
 

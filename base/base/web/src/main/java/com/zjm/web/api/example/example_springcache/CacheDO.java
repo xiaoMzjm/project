@@ -3,7 +3,7 @@ package com.zjm.web.api.example.example_springcache;
 import java.io.Serializable;
 
 /**
- * @author:黑绝
+ * @author:小M
  * @date:2018/11/4 下午11:59
  */
 public class CacheDO implements Serializable {

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author:黑绝
+ * @author:小M
  * @date:2018/11/4 下午10:27
  */
 @RestController
@@ -33,7 +33,7 @@ public class JpaResource {
     @RequestMapping(value = "/insert/{name}" , method = RequestMethod.POST)
     public String insert(@PathVariable String name){
         UserDO userDO = new UserDO();
-        userDO.setName(name);
+        userDO.setNickName(name);
 
         List<UserDO> list = new ArrayList<>();
         list.add(userDO);
@@ -63,7 +63,7 @@ public class JpaResource {
     public String findByPage(@PathVariable String name) {
 
         UserDO userDO = new UserDO();
-        userDO.setName(name);
+        userDO.setNickName(name);
 
 
         Example<UserDO> example = Example.of(userDO);
@@ -86,7 +86,7 @@ public class JpaResource {
         list = userRepository.findAllById(ids);
 
         for(UserDO item : list) {
-            item.setName(name);
+            item.setNickName(name);
         }
 
         list = userRepository.saveAll(list);

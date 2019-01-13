@@ -13,7 +13,7 @@ import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Jedis;
 
 /**
- * @author:黑绝
+ * @author:小M
  * @date:2018/11/5 下午11:17
  */
 @Configuration

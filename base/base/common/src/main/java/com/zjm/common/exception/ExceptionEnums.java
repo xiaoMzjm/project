@@ -2,7 +2,7 @@ package com.zjm.common.exception;
 
 /**
  * 错误枚举
- * @author:黑绝
+ * @author:小M
  * @date:2019/1/12 12:31 PM
  */
 public enum ExceptionEnums {

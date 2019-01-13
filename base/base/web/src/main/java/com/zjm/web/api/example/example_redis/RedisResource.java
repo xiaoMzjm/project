@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * 运行该例子需要先启动redis，不启动也可以，不影响springboot启动，只是调用时报错
  *
- * @author:黑绝
+ * @author:小M
  * @date:2018/11/5 上午12:56
  */
 @RestController

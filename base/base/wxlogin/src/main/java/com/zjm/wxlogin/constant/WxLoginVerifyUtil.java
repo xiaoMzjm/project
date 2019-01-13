@@ -1,21 +1,18 @@
-package com.zjm.common.util;
+package com.zjm.wxlogin.constant;
 
 import java.util.Collection;
 
-import com.zjm.common.exception.BaseExcpetion;
-import com.zjm.common.exception.ExceptionEnums;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * 校验器
  * @author:小M
- * @date:2019/1/12 12:25 PM
+ * @date:2019/1/13 10:54 PM
  */
-public class VerifyUtil {
+public class WxLoginVerifyUtil {
 
-    public static void isTrue(Boolean b , ExceptionEnums e , Object... args) throws Exception {
+    public static void isTrue(Boolean b , WxLoginExceptionEnums e , Object... args) throws Exception {
         if(b == null || b == false) {
             StringBuilder errorMsg = new StringBuilder();
             errorMsg.append(e.getMsg());
@@ -26,7 +23,7 @@ public class VerifyUtil {
                     }
                 }
             }
-            throw new BaseExcpetion(errorMsg.toString());
+            throw new WxLoginExcpetion(errorMsg.toString());
         }
     }
 
@@ -37,7 +34,7 @@ public class VerifyUtil {
      * @param args
      * @throws Exception
      */
-    public static void isNotNull(Object o , ExceptionEnums e , Object... args) throws Exception{
+    public static void isNotNull(Object o , WxLoginExceptionEnums e , Object... args) throws Exception{
         if(o == null) {
             isTrue(Boolean.FALSE , e , args);
         }
@@ -50,7 +47,7 @@ public class VerifyUtil {
      * @param args
      * @throws Exception
      */
-    public static void isNotEmpty(Object o , ExceptionEnums e, Object... args) throws Exception{
+    public static void isNotEmpty(Object o , WxLoginExceptionEnums e, Object... args) throws Exception{
         if(o == null) {
             isTrue(Boolean.FALSE , e , args);
         }
@@ -73,5 +70,4 @@ public class VerifyUtil {
             }
         }
     }
-
 }

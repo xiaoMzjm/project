@@ -10,6 +10,7 @@
 		<module>web</module>
 		<module>common</module>
 		<module>dao</module>
+		<module>wxlogin</module>
 	</modules>
 	<packaging>pom</packaging>
 
@@ -51,6 +52,11 @@
 				<artifactId>dao</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>com.zjm</groupId>
+				<artifactId>wxlogin</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
             <!-- ================================================= -->
             <!-- 工具类                                             -->
             <!-- ================================================= -->
@@ -89,6 +95,23 @@
 				<artifactId>guava</artifactId>
 				<version>25.0-jre</version>
 			</dependency>
+			<!-- https://mvnrepository.com/artifact/net.iharder/base64 -->
+			<dependency>
+				<groupId>net.iharder</groupId>
+				<artifactId>base64</artifactId>
+				<version>2.3.8</version>
+			</dependency>
+			<!-- 解密 -->
+			<dependency>
+				<groupId>org.codehaus.xfire</groupId>
+				<artifactId>xfire-core</artifactId>
+				<version>1.2.6</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk16</artifactId>
+				<version>1.46</version>
+			</dependency>
 
             <!-- ================================================= -->
             <!-- 数据库                                             -->
@@ -99,6 +122,15 @@
                 <artifactId>jedis</artifactId>
                 <version>2.9.0</version>
             </dependency>
+
+			<!-- ================================================= -->
+			<!-- 网络                                               -->
+			<!-- ================================================= -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>fluent-hc</artifactId>
+				<version>4.5.3</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>

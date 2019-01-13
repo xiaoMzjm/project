@@ -12,7 +12,7 @@ import redis.clients.jedis.JedisPool;
 
 /**
  * https://www.cnblogs.com/linjiqin/p/8003838.html
- * @author:黑绝
+ * @author:小M
  * @date:2018/5/1 2:24
  */
 public class LockUtil {

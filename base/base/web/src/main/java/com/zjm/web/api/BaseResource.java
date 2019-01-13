@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * http://localhost:8099/swagger-ui.html
- * @author:黑绝
+ * @author:小M
  * @date:2018/11/4 下午9:59
  */
 @RestController

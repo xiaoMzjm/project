@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * spring cache有点小复杂，不太建议使用，代码显示编程使用redis比较明朗一点
  *
- * @author:黑绝
+ * @author:小M
  * @date:2018/11/5 上午12:14
  */
 @Configuration
