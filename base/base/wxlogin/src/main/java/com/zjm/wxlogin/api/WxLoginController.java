@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSON;
 
 import com.zjm.wxlogin.constant.WxLoginResult;
 import com.zjm.wxlogin.manager.WxLoginManager;
+import com.zjm.wxlogin.model.WxUserInfoVO;
 import com.zjm.wxlogin.model.dto.WxUserInfoDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +44,11 @@ public class WxLoginController {
     public String login(String code , String encryptedData , String iv) {
         try {
             WxUserInfoDTO wxUserInfoDTO = wxLoginManager.login(code, encryptedData ,iv);
-            WxLoginResult<WxUserInfoDTO> result = WxLoginResult.success(wxUserInfoDTO);
+            WxUserInfoVO wxUserInfoVO = new WxUserInfoVO();
+            BeanUtils.copyProperties(wxUserInfoDTO , wxUserInfoVO);
+            WxLoginResult<WxUserInfoVO> result = WxLoginResult.success(wxUserInfoVO);
+            System.out.println("微信登录成功：");
+            System.out.println(JSON.toJSONString(result));
             return JSON.toJSONString(result);
         }catch (Exception e) {
             e.printStackTrace();
