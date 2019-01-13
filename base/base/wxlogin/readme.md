@@ -41,4 +41,9 @@ CREATE TABLE `user` (
 </dependency>
 ```
 
-## 3.配置扫描
+## 3.微信js访问
+```
+https://xxx.xxx.xxx/wx/login
+访问类型：POST
+入参：String code , String encryptedData , String iv
+```
