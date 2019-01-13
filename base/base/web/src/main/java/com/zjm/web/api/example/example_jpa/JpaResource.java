@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.zjm.dao.model.UserDO;
+import com.zjm.dao.repository.UserRepository;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -28,11 +30,11 @@ public class JpaResource {
     private UserRepository userRepository;
 
     @ApiOperation(value = "批量插入" , notes = "批量插入")
-    @RequestMapping(value = "/insert/{name}/{age}" , method = RequestMethod.POST)
-    public String insert(@PathVariable String name , @PathVariable Integer age){
+    @RequestMapping(value = "/insert/{name}" , method = RequestMethod.POST)
+    public String insert(@PathVariable String name){
         UserDO userDO = new UserDO();
         userDO.setName(name);
-        userDO.setAge(age);
+
         List<UserDO> list = new ArrayList<>();
         list.add(userDO);
         list = userRepository.saveAll(list);

@@ -9,6 +9,7 @@
 	<modules>
 		<module>web</module>
 		<module>common</module>
+		<module>dao</module>
 	</modules>
 	<packaging>pom</packaging>
 
@@ -32,51 +33,72 @@
 
 	<dependencyManagement>
 		<dependencies>
+            <!-- ================================================= -->
+            <!-- 模块                                               -->
+            <!-- ================================================= -->
 			<dependency>
 				<groupId>com.zjm</groupId>
 				<artifactId>web</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.zjm</groupId>
 				<artifactId>common</artifactId>
-			</dependency>
-			<!-- swagger -->
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger2</artifactId>
-				<version>${swagger.version}</version>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger-ui</artifactId>
-				<version>${swagger.version}</version>
+				<groupId>com.zjm</groupId>
+				<artifactId>dao</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
-			<!-- jedis -->
+            <!-- ================================================= -->
+            <!-- 工具类                                             -->
+            <!-- ================================================= -->
+            <!-- swagger -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+			<!-- fastjson -->
 			<dependency>
-				<groupId>redis.clients</groupId>
-				<artifactId>jedis</artifactId>
-				<version>2.9.0</version>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>1.2.46</version>
+			</dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.8.1</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.9.3</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>25.0-jre</version>
 			</dependency>
 
+            <!-- ================================================= -->
+            <!-- 数据库                                             -->
+            <!-- ================================================= -->
+            <!-- jedis -->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.9.0</version>
+            </dependency>
 		</dependencies>
 	</dependencyManagement>
-
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<!-- jar部署 -->
-					<!-- 1. mvn clean package -Dmaven.test.skip=true -->
-					<!-- 2. java -jar base-0.0.1-SNAPSHOT.jar -->
-					<executable>true</executable>
-					<mainClass>com.zjm.base.BaseApplication</mainClass>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
-
 </project>
