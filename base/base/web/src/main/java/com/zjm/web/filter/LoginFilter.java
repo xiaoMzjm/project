@@ -25,4 +25,8 @@ public class LoginFilter implements Filter {
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
+
+    public static void main(String[] args) {
+
+    }
 }
