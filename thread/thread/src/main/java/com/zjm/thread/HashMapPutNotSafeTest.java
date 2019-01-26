@@ -1,12 +1,14 @@
-package com.zjm.web.api;
+package com.zjm.thread;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
+ * HashMap的put方法是线程不安全的，这里写一个例子证明
  * @author:黑绝
  * @date:2018/11/8 下午12:54
  */
-public class HashMapPutTest {
+public class HashMapPutNotSafeTest {
 
     /**
      由于put是一个先get再put的操作，我们传入一个key，hashmap计算hash值，然后计算节点位置

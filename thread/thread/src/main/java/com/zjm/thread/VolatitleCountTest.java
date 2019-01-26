@@ -1,22 +1,21 @@
-package com.zjm.web.api;
+package com.zjm.thread;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 举例AtomicInteger的用法
+ * Volatitle 只能使内存可视化，但没有原子化的功能，不能使多线程i++原子化
  * @author:黑绝
  * @date:2018/11/8 上午2:07
  */
-public class AtomicCountTest {
+public class VolatitleCountTest {
 
-    private AtomicInteger ai = new AtomicInteger(0);
+    private volatile int ai = 0;
     private int i = 0;
 
     public static void main(String[] args) throws Exception{
 
-        AtomicCountTest atomicCountTest = new AtomicCountTest();
+        VolatitleCountTest atomicCountTest = new VolatitleCountTest();
         List<Thread> list = new ArrayList<>();
         for(int i = 0 ; i < 10000 ; i++) {
             Thread t = new Thread(new Runnable(){
@@ -56,14 +55,8 @@ public class AtomicCountTest {
         System.out.println(atomicCountTest.i);
 
         /**
-         * ai会等于10000的，因为ai是AtomicInteger，每次更新都会写回主存
-         * 假设i=0，线程A读取i的值为0，线程B读取i的值也为0
-         * 然后线程A加了1，写回主存中，由于入参旧值为0，主存中的值也为0，i=1
-         * 然后线程B加了1，写回主存中，由于入参旧值为0，主存的值为1，写回失败
-         * 线程B重新get主存中i的值，为1，然后加了1等于2，写回主存中，由于入参旧值为1，主存的值为1，写回成功
-         * 所以加了两次，但是i=2
-         *
-         * 实际测试结果为10000
+         * 使用volatile无法解决上述的问题，因为volatile只是在写的时候，保证立刻刷新到主存中
+         * 但是还是避免不了先读再写的过程中，该变量已经被其他线程写进去了，然后当前再写就会覆盖了其他线程写的值。
          */
         System.out.println(atomicCountTest.ai);
 
@@ -75,12 +68,6 @@ public class AtomicCountTest {
     }
 
     private void safeCount(){
-        while(true) {
-            int old = ai.get();
-            boolean result = ai.compareAndSet(old , ++ old);
-            if(result) {
-                break;
-            }
-        }
+        ai ++;
     }
 }

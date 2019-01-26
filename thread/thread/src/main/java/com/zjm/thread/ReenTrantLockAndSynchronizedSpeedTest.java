@@ -1,11 +1,12 @@
-package com.zjm.web.api;
+package com.zjm.thread;
 
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * 测试ReenTrantLock和效率
+ *
  * @author:黑绝
  * @date:2018/11/17 下午9:10
  *
@@ -16,14 +17,14 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * 速度上，现在synchronized甚至比reenTrantLock更优。
  *
  */
-public class ReenTrantLockTest {
+public class ReenTrantLockAndSynchronizedSpeedTest {
 
     private final static ReentrantReadWriteLock LOCK = new ReentrantReadWriteLock();
 
     public static void main(String[] args) throws Exception{
 
-        List<Thread> reenThreadList = new ArrayList<>(10000);
-        List<Thread> synThreadList = new ArrayList<>(10000);
+        List<Thread> reenThreadList = new ArrayList<Thread>(10000);
+        List<Thread> synThreadList = new ArrayList<Thread>(10000);
 
         for(int i = 0 ; i < 10000 ; i++) {
             Thread reenThread = new Thread(new Runnable() {
@@ -62,8 +63,6 @@ public class ReenTrantLockTest {
         }
         end = System.currentTimeMillis();
         System.out.println("synLock use time = " + (end - start) + " ms" );
-
-
     }
 
     private static void reentrantlock(){
