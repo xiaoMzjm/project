@@ -21,9 +21,10 @@ public class WxLoginResult<T> {
         return result;
     }
 
-    public static <T> WxLoginResult<T> error(String errorMsg) {
+    public static <T> WxLoginResult<T> error(String errorCode , String errorMsg) {
         WxLoginResult result = new WxLoginResult();
         result.setSuccess(false);
+        result.setErrorCode(errorCode);
         result.setErrorMsg(errorMsg);
         return result;
     }

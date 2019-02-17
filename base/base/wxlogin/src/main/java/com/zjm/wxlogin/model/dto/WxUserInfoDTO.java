@@ -52,6 +52,8 @@ public class WxUserInfoDTO {
      */
     private String id;
 
+    private String token;
+
 
     @Override
     public String toString() {
@@ -129,5 +131,13 @@ public class WxUserInfoDTO {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

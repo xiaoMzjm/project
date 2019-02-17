@@ -1,5 +1,6 @@
 package com.zjm.wxlogin.manager;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -9,6 +10,7 @@ import com.zjm.wxlogin.model.data.WxUserInfoDO;
 import com.zjm.wxlogin.model.dto.WxRequireLoginResultDTO;
 import com.zjm.wxlogin.model.dto.WxUserInfoDTO;
 import com.zjm.wxlogin.repository.WxLoginUserRepository;
+import com.zjm.wxlogin.util.UUIDUtil;
 import com.zjm.wxlogin.wrapper.WxWapper;
 import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.beans.BeanUtils;
@@ -29,7 +31,7 @@ public class WxLoginManager {
     @Autowired
     private WxWapper wxWapper;
     @Autowired
-    private WxLoginUserRepository wxLoginUserRepository;
+    private WxUserInfoManager wxUserInfoManager;
 
     /**
      * 入参校验
@@ -64,7 +66,7 @@ public class WxLoginManager {
         WxUserInfoDTO wxUserInfoDTO = wxWapper.decodeUserInfo(encryptedData , wxRequireLoginResultDTO.getSession_key() , iv);
 
         // 4.保存到数据库
-        this.save2db(wxUserInfoDTO);
+        wxUserInfoDTO = this.save2db(wxUserInfoDTO);
 
         return wxUserInfoDTO;
     }
@@ -73,17 +75,36 @@ public class WxLoginManager {
      * 保存到数据库
      * @param wxUserInfoDTO
      */
-    private synchronized void save2db(WxUserInfoDTO wxUserInfoDTO){
-        WxUserInfoDO wxUserInfoDO = new WxUserInfoDO();
-        wxUserInfoDO.setOpenId(wxUserInfoDTO.getOpenId());
-        Example<WxUserInfoDO> example = Example.of(wxUserInfoDO);
-        Optional<WxUserInfoDO> findResult = wxLoginUserRepository.findOne(example);
+    private synchronized WxUserInfoDTO save2db(WxUserInfoDTO wxUserInfoDTO){
 
-        if(!findResult.isPresent()) {
+        WxUserInfoDO wxUserInfoDO = wxUserInfoManager.findByOpenId(wxUserInfoDTO.getOpenId());
+
+        // 无则新增
+        if(wxUserInfoDO == null) {
+            wxUserInfoDO = new WxUserInfoDO();
             BeanUtils.copyProperties(wxUserInfoDTO , wxUserInfoDO);
-            wxUserInfoDO.setId(UUID.randomUUID().toString());
-            wxLoginUserRepository.save(wxUserInfoDO);
+            String id = UUIDUtil.get();
+            wxUserInfoDO.setId(id);
+            String token = UUIDUtil.get();
+            wxUserInfoDO.setToken(token);
+            String code = UUIDUtil.get();
+            wxUserInfoDO.setCode(code);
+            Date now = new Date();
+            wxUserInfoDO.setGmtCreate(now);
+            wxUserInfoDO.setGmtModified(now);
+            wxUserInfoManager.save(wxUserInfoDO);
+            wxUserInfoDTO.setToken(token);
         }
+        // 有责更新token
+        else {
+            String token = UUIDUtil.get();
+            wxUserInfoDO.setToken(token);
+            wxUserInfoDO.setGmtModified(new Date());
+            wxUserInfoManager.save(wxUserInfoDO);
+            wxUserInfoDO = wxUserInfoManager.findByOpenId(wxUserInfoDO.getOpenId());
+            BeanUtils.copyProperties(wxUserInfoDO , wxUserInfoDTO);
+        }
+        return wxUserInfoDTO;
     }
 
 

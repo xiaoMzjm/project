@@ -1,5 +1,7 @@
 package com.zjm.wxlogin.model.data;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,6 +9,7 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -22,6 +25,18 @@ public class WxUserInfoDO {
      */
     @Id
     private String id;
+
+    @Column
+    private Date gmtCreate;
+
+    @Column
+    private Date gmtModified;
+
+    @Column
+    private String token;
+
+    @Column
+    private String code;
 
     /**
      * 微信字段
@@ -127,5 +142,37 @@ public class WxUserInfoDO {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

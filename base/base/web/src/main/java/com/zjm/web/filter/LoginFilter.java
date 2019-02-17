@@ -22,7 +22,6 @@ public class LoginFilter implements Filter {
 
         // 判断request的参数，如果权限错误则抛异常
 
-
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
