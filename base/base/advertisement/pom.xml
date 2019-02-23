@@ -9,45 +9,24 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>web</artifactId>
+    <artifactId>advertisement</artifactId>
 
     <dependencies>
         <!-- ================================================= -->
-        <!-- 子模块                                               -->
+        <!-- 子模块                                             -->
         <!-- ================================================= -->
-        <dependency>
-            <groupId>com.zjm</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.zjm</groupId>
-            <artifactId>dao</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.zjm</groupId>
             <artifactId>user</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.zjm</groupId>
-            <artifactId>advertisement</artifactId>
-        </dependency>
+
         <!-- ================================================= -->
-        <!-- spring                                               -->
+        <!-- web                                               -->
         <!-- ================================================= -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
         <!-- ================================================= -->
         <!-- 工具类                                             -->
         <!-- ================================================= -->
@@ -60,11 +39,28 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
-
-
-
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
         <!-- ================================================= -->
-        <!-- 数据                                               -->
+        <!-- 数据库                                             -->
         <!-- ================================================= -->
         <!-- mysql -->
         <dependency>
@@ -72,35 +68,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- jedis -->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-        </dependency>
+        <!-- spring jpa -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <!-- springcache -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!-- jar部署 -->
-                    <!-- 1. mvn clean package -Dmaven.test.skip=true -->
-                    <!-- 2. java -jar web-0.0.1-SNAPSHOT.jar -两个-spring.profiles.active=online -->
-                    <mainClass>com.zjm.web.Application</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

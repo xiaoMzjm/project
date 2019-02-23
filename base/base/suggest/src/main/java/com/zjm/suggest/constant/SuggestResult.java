@@ -1,10 +1,10 @@
-package com.zjm.common.constant;
+package com.zjm.suggest.constant;
 
 /**
  * @author:小M
  * @date:2018/4/29 22:10
  */
-public class Result<T> {
+public class SuggestResult<T> {
 
     private Boolean isSuccess;
 
@@ -14,23 +14,17 @@ public class Result<T> {
 
     private String errorCode;
 
-    public static <T> Result <T> success(T t){
-        Result result = new Result();
+    public static <T> SuggestResult<T> success(T t){
+        SuggestResult result = new SuggestResult();
         result.setSuccess(true);
         result.setData(t);
         return result;
     }
 
-    public static <T> Result<T> error(String errorMsg) {
-        Result result = new Result();
+    public static <T> SuggestResult<T> error(String errorCode , String errorMsg) {
+        SuggestResult result = new SuggestResult();
         result.setSuccess(false);
-        result.setErrorMsg(errorMsg);
-        return result;
-    }
-
-    public static <T> Result<T> error(String errorCode , String errorMsg) {
-        Result result = new Result();
-        result.setSuccess(false);
+        result.setErrorCode(errorCode);
         result.setErrorMsg(errorMsg);
         return result;
     }

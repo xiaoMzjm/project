@@ -2,7 +2,7 @@ package com.zjm.common.util;
 
 import java.util.Collection;
 
-import com.zjm.common.exception.BaseExcpetion;
+import com.zjm.common.exception.BaseException;
 import com.zjm.common.exception.ExceptionEnums;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -26,7 +26,7 @@ public class VerifyUtil {
                     }
                 }
             }
-            throw new BaseExcpetion(errorMsg.toString());
+            throw new BaseException(errorMsg.toString());
         }
     }
 

@@ -10,8 +10,10 @@
 		<module>web</module>
 		<module>common</module>
 		<module>dao</module>
-		<module>wxlogin</module>
-	</modules>
+		<module>user</module>
+        <module>advertisement</module>
+        <module>suggest</module>
+    </modules>
 	<packaging>pom</packaging>
 
 	<name>base</name>
@@ -54,7 +56,12 @@
 			</dependency>
 			<dependency>
 				<groupId>com.zjm</groupId>
-				<artifactId>wxlogin</artifactId>
+				<artifactId>user</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.zjm</groupId>
+				<artifactId>advertisement</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
             <!-- ================================================= -->
@@ -131,6 +138,7 @@
 				<artifactId>fluent-hc</artifactId>
 				<version>4.5.3</version>
 			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 </project>
