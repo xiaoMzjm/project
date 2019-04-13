@@ -64,6 +64,7 @@ public class SuggestController {
             return JSON.toJSONString(suggestResult);
         }
         SuggestVO suggestVO = SuggestConvertor.dto2vo(suggestResult.getData());
+
         return JSON.toJSONString(Result.success(suggestVO));
     }
 }

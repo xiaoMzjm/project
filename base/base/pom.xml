@@ -7,13 +7,12 @@
 	<artifactId>base</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
-		<module>web</module>
 		<module>common</module>
-		<module>dao</module>
 		<module>user</module>
         <module>advertisement</module>
         <module>suggest</module>
-    </modules>
+		<module>biz</module>
+	</modules>
 	<packaging>pom</packaging>
 
 	<name>base</name>

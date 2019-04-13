@@ -1,10 +1,9 @@
 # 目录结构
-1. advertisement：广告模块
-2. common：业务通用模块
-3. dao：业务数据库模块
-4. web：业务网络模块
-5. wxlogin：微信登录模块
-6. suggest：建议和反馈模块
+1. web：业务web模块
+2. common：通用模块
+3. advertisement：广告模块
+4. user：登录、用户模块
+5. suggest：建议和反馈模块
 
 # Swagger
 Swagger本地：https://localhost/swagger-ui.html
