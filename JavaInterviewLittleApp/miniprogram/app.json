@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/secondcatalog/secondcatalog",
+    "pages/article/article"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#67865f",
+    "navigationBarTitleText": "Java面试小课堂",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh":true
+  },
+  "component": true,
+  "usingComponents": {
+    "wemark": "thirdcore/wemark/wemark"
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,86 @@
+
+
+<view class="page">
+    <!-- 搜索 -->
+    <view class="weui-search-bar">
+        <button open-type="share" class="shareButton"><image class="kind-list__img" src="/images/shareothers.png" ></image></button>
+        
+        <view class="weui-search-bar__form">
+            <view class="weui-search-bar__box">
+                <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+                <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                    <icon type="clear" size="14"></icon>
+                </view>
+            </view>
+            <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                <icon class="weui-icon-search" type="search" size="14"></icon>
+                <view class="weui-search-bar__text">输入文件标题</view>
+            </label>
+        </view>
+        <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+    </view>
+    <view class="weui-cells searchbar-result" wx:if="{{searchCataLogVOList.length > 0 && inputVal.length > 0}}">
+        <view wx:for="{{searchCataLogVOList}}">
+            <navigator url="/pages/article/article?code={{item.code}}" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>{{item.code}}</view>
+                </view>
+            </navigator>
+        </view>
+    </view>
+    
+    <!-- 图片轮播 -->
+    <swiper
+      indicator-dots="true"
+      autoplay="true"
+      interval="2000"
+    >
+      <view wx:for="{{headerPicUrl}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image headerpic-image" />
+        </swiper-item>
+      </view>
+    </swiper>
+
+    <!-- 标题 -->
+    <!-- <view class="page__hd">
+        <view class="page__title">Java</view>
+        <view class="page__desc">面试小课堂</view>
+    </view> -->
+
+    <!-- 内容 -->
+    <view class="page__bd">
+
+        <!-- 公告 -->
+        <view class="notice_view" wx:if="{{noticeList.length > 0}}">
+          <image class="kind-list__img notice_image" src="/images/notice.png" ></image>
+          <swiper class="swiper_container" 
+          autoplay="true" 
+          circular="true"
+          vertical="true"
+          easing-function="easeInOutCubic">
+            <block wx:for="{{noticeList}}">
+              <navigator url="{{item.url}}" open-type="navigate">
+                <swiper-item>
+                  <view class="swiper_item">{{item.title}}</view>
+                </swiper-item>
+              </navigator>
+            </block>
+          </swiper>
+        </view>
+
+        <!-- 九宫格 -->
+        <view class="weui-grids">
+            <block wx:for="{{grids}}">
+                <navigator url="/pages/secondcatalog/secondcatalog?code={{item.code}}" class="weui-grid" hover-class="weui-grid_active">
+                    <image class="weui-grid__icon" src="/images/{{item.pic}}" />
+                    <view class="weui-grid__label">{{item.name}}</view>
+                </navigator>
+            </block>
+        </view>        
+    </view>
+
+    <!-- 页脚 -->
+    <!-- <include src="/pages/footer/footer.wxml" /> -->
+</view>

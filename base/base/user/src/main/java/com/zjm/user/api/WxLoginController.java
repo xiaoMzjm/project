@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSON;
 
 import com.zjm.common.constant.Result;
-import com.zjm.user.filter.NotCheckToken;
+import com.zjm.user.filter.WeiXinLoginFilter;
 import com.zjm.user.model.WxUserInfoVO;
 import com.zjm.user.model.WxUserInfoDTO;
 import com.zjm.user.service.WxLoginService;
@@ -47,7 +47,7 @@ public class WxLoginController {
      */
     @ApiOperation(value = "微信登陆" ,  notes="微信登陆")
     @RequestMapping(value = "/login" , method = RequestMethod.POST , produces = {"application/json;charset=UTF-8"})
-    @NotCheckToken
+    @WeiXinLoginFilter
     public String login(@ApiParam(name="用户code",value="code",required=true)String code ,
                         @ApiParam(name="密文",value="encryptedData",required=true)String encryptedData ,
                         @ApiParam(name="解密向量",value="iv",required=true)String iv,

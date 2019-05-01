@@ -1,0 +1,29 @@
+<view class="page">
+    <view class="page__bd page__bd_spacing">
+        <view class="kind-list">
+            <block wx:for="{{list}}" wx:key="id">
+                <view class="kind-list__item">
+                    <view id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
+                        <view class="weui-flex__item">{{item.name}}</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        <!-- <image class="kind-list__img" src="/images/icon_nav_form.png"></image> -->
+                    </view>
+                    <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
+                        <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
+                            <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
+                                <navigator url="/pages/article/article?code={{page.code}}" class="weui-cell weui-cell_access">
+                                    <view class="weui-cell__bd">{{page.name}}</view>
+                                    <!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
+                                </navigator>
+                            </block>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" wx:if="{{list==''}}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">小编努力编写中,敬请期待</view>
+    </view>
+    <include src="/pages/footer/footer.wxml" />
+</view>

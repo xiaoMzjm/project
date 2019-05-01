@@ -1,0 +1,9 @@
+    
+    <view class="weui-footer">
+        <view class="weui-footer__links">
+            <navigator url="/pages/index/index" 
+            class="weui-footer__link"
+            open-type="redirect">课堂首页</navigator>
+        </view>
+        <view class="weui-footer__text">意见反馈 javaclassroom@163.com</view>
+    </view>

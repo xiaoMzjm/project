@@ -31,12 +31,22 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Value("${local:false}")
     private Boolean local;
 
+    @Value("${local:true}")
+    private Boolean enableWeiXinLoginFilter;
+
     @Autowired
     private WxUserInfoManager wxUserInfoManager;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
         throws Exception {
+
+        /**
+         * 不开启拦截的，直接返回
+         */
+        if(!enableWeiXinLoginFilter) {
+            return true;
+        }
 
         this.setUtf8(response);
 
@@ -54,8 +64,11 @@ public class TokenInterceptor implements HandlerInterceptor {
         HandlerMethod handlerMethod = (HandlerMethod)handler;
         Method method = handlerMethod.getMethod();
 
-        NotCheckToken notCheckToken = method.getAnnotation(NotCheckToken.class);
-        if(notCheckToken != null) {
+        /**
+         * 打了注解的才需要拦截
+         */
+        WeiXinLoginFilter weiXinLoginFilter = method.getAnnotation(WeiXinLoginFilter.class);
+        if(weiXinLoginFilter == null) {
             return true;
         }
 

@@ -1,0 +1,55 @@
+/* pages/grid/grid.wxss */
+page,.page{
+  height:100%;
+}
+
+/** 图片轮播 **/
+.headerpic-image{
+  width:100%;
+  height:100%;
+}
+
+/** 搜索栏 **/
+.weui-search-bar{
+  border-top:0rpx solid #d7d6dc;
+  border-bottom:0rpx solid #d7d6dc;
+  background-color: #67865f;
+}
+.weui-search-bar__cancel-btn{
+  color: white
+}
+.kind-list__img{width:30px;height:30px;margin-right: 10px;}
+.shareButton{
+  margin:0px;
+  padding:0px;
+  line-height: 0px;
+  background-color: #67865f;
+  border: 0px;
+}
+.shareButton::after {
+  border: 0;
+}
+
+
+/** 公告栏 **/
+.notice_view{
+  background-color: #f8fceb;
+  font-weight: 300;
+}
+.swiper_container {
+  height: 60rpx;
+  width: 85%;
+  float:right;
+  line-height: 40px;
+}
+.swiper_item {
+  font-size: 30rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.notice_image{
+  margin-left:10px;
+  margin-right: 0px;
+  margin-top:5px;
+}

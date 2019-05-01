@@ -1,5 +1,7 @@
 package com.zjm.biz.web.api;
 
+import com.zjm.biz.web.filter.ApiFilter;
+import com.zjm.common.exception.BaseException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,16 +16,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BaseResource {
 
-
     @ApiOperation(value = "index" , notes = "index")
     @RequestMapping(value = "/" , method = RequestMethod.GET)
     public String index(){
-        return "健身信息展示";
+        return "信息展示";
     }
 
+    @ApiFilter
     @ApiOperation(value = "hello接口" , notes = "hello")
-    @RequestMapping(value = "/hello" , method = RequestMethod.POST)
-    public String hello(@PathVariable String name){
+    @RequestMapping(value = "/hello/{name}" , method = RequestMethod.GET)
+    public Object hello(@PathVariable String name){
         return "hello " + name ;
+    }
+
+    @ApiFilter
+    @ApiOperation(value = "抛异常" , notes = "抛异常")
+    @RequestMapping(value = "/throwEx" , method = RequestMethod.GET)
+    public Object throwEx() throws Exception{
+        if(true) {
+            throw new BaseException("error code " , "error Msg");
+        }
+        return "hello " ;
     }
 }

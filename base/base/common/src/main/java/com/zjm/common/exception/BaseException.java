@@ -13,6 +13,11 @@ public class BaseException extends Exception{
         super(msg);
     }
 
+    public BaseException(String errorCode , String msg) {
+        super(msg);
+        this.errorCode = errorCode;
+    }
+
     public String getErrorCode() {
         return errorCode;
     }

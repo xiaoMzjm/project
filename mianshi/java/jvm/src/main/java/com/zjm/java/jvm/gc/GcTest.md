@@ -3,10 +3,10 @@
 解：
 设置jvm启动参数为-Xms40m -Xmx40m -Xmn9m -XX:SurvivorRatio=7 -XX:+UseParallelGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps
 
--Xms40m：设置堆的初始内存为40m
--Xmx40m：设置堆的最大内存为40m
--xmn9m：设置年轻代的内存为9m，老年代的大小为40-9=31m
--XX:SurvivorRatio=7：设置年轻代eden区和两个survivor区的比例为7:1:1，即eden区的内存为7m
+-Xms42m：设置堆的初始内存为40m
+-Xmx42m：设置堆的最大内存为40m
+-xmn11m：设置年轻代的内存为9m，老年代的大小为42-11=31m
+-XX:SurvivorRatio=9：设置年轻代eden区和两个survivor区的比例为9:1:1，即eden区的内存为7m
 
 设每次添加3m。
 
@@ -35,5 +35,10 @@
 |18|+3m|6/7|0/2|18/31|6|3|
 |19|+3m|3/7|0/2|24/31|7|3|yhc
 |20|+3m|6/7|0/2|24/31|7|3|
-|20|+3m|0/7|0/2|30/31|7|4|ygc,fgc
+|20|+3m|0/7|0/2|30/31|8|4|ygc,fgc
 
+
+下面是使用jstat命令观察的例子：
+![gc1](https://raw.githubusercontent.com/xiaoMzjm/images/master/gc1.png)
+
+![gc2](https://raw.githubusercontent.com/xiaoMzjm/images/master/gc2.png)

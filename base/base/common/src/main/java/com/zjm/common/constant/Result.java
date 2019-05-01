@@ -32,6 +32,7 @@ public class Result<T> {
         Result result = new Result();
         result.setSuccess(false);
         result.setErrorMsg(errorMsg);
+        result.setErrorCode(errorCode);
         return result;
     }
 
