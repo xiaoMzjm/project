@@ -54,5 +54,14 @@ App({
     else {
       return 'https://www.keephealthy.top/article/article/get';
     }
+  },
+
+  lastestArticalUrl:function(){
+    if (env == 'local') {
+      return 'https://localhost/article/article/lastest/get';
+    }
+    else {
+      return 'https://www.keephealthy.top/article/article/lastest/get';
+    }
   }
 })

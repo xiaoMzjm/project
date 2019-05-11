@@ -32,7 +32,8 @@ Page({
   init:function(){
     this.initPic();
     this.initCataLog();
-    this.initNotice();
+    // this.initNotice();
+    this.initLastestArticle();
   },
 
   /**
@@ -148,6 +149,54 @@ Page({
         }
         that.setData({
           noticeList: JSON.parse(serverResult.data.cataLog)
+        });
+
+      },
+      fail: function (e) {
+        wx.showModal({
+          title: "系统维护中，请稍后重试",
+          content: '',
+          showCancel: false,
+        });
+      }
+    })
+  },
+
+  /**
+   * 初始最新文章
+   */
+  initLastestArticle: function () {
+    let that = this;
+    wx.request({
+      url: app.lastestArticalUrl(),
+      data: {
+        code: 'indexNotice'
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      method: 'POST',
+      success: function (result) {
+        let serverResult = result.data;
+        if (!serverResult.success) {
+          wx.showModal({
+            title: "获取最新文章失败",
+            content: serverResult.errorMsg,
+            showCancel: false,
+          });
+          return;
+        }
+        console.info("index.js|initLastestArticle|serverResult=");
+        console.info(serverResult);
+        if (!serverResult.data) {
+          console.info("index.js|initLastestArticle|没有最新文章");
+          that.setData({
+            noticeList: ''
+          });
+          return;
+        }
+        that.setData({
+          noticeList: serverResult.data
         });
 
       },

@@ -26,6 +26,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    wx.showLoading({
+      title: '加载中',
+    });
     this.initArticle();
   },
 
@@ -64,9 +67,10 @@ Page({
           wemark: md,
           catalogVO: serverResult.data
         });
-
+        wx.hideLoading();
       },
       fail: function (e) {
+        wx.hideLoading();
         wx.showModal({
           title: "网络异常",
           content: e.errMsg,

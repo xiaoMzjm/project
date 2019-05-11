@@ -4,10 +4,12 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 
+import com.google.common.collect.Lists;
 import com.zjm.biz.biz.manager.ArticleManager;
 import com.zjm.biz.biz.modle.dto.CataLogDTO;
 import com.zjm.biz.biz.modle.enums.CataLogTypeEnum;
 import com.zjm.biz.biz.modle.vo.CataLogVO;
+import com.zjm.biz.biz.modle.vo.LastestArticleVO;
 import com.zjm.biz.web.filter.ApiFilter;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,15 @@ public class ArticleResource {
         CataLogDTO cataLogDTO = articleManager.getCataLogByCode(code) ;
         CataLogVO cataLogVO = CataLogVO.ofDtO(cataLogDTO);
         return cataLogVO;
+    }
+
+    @ApiFilter
+    @ApiOperation(value = "获取最新文章" , notes = "获取最新文章")
+    @RequestMapping(value = "/article/lastest/get" , method = RequestMethod.POST)
+    public Object getLastestArticle(){
+        CataLogDTO cataLogDTO = articleManager.getLastestArticle() ;
+        LastestArticleVO lastestArticleVO = LastestArticleVO.of(cataLogDTO);
+        return Lists.newArrayList(lastestArticleVO);
     }
 
     @ApiFilter

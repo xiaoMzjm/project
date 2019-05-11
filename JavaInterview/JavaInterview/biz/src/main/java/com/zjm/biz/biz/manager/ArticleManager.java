@@ -30,6 +30,12 @@ public class ArticleManager {
     @Autowired
     private CataLogRepository cataLogRepository;
 
+    /**
+     * 插入一行记录
+     * @param type
+     * @param code
+     * @param cataLog
+     */
     public void insertOrUpdateCataLog(String type , String code ,String cataLog) {
         CataLogDTO cataLogDTO = getCataLogByCode(code);
         CataLogDO cataLogDO = CataLogDO.ofDTO(cataLogDTO);
@@ -56,6 +62,11 @@ public class ArticleManager {
         cataLogDO = cataLogRepository.save(cataLogDO);
     }
 
+    /**
+     * 根据code获取文章
+     * @param code
+     * @return
+     */
     public CataLogDTO getCataLogByCode(String code) {
         CataLogDO cataLogDO = new CataLogDO();
         cataLogDO.setCode(code);
@@ -75,6 +86,21 @@ public class ArticleManager {
         return CataLogDTO.ofDO(cataLogDO);
     }
 
+    /**
+     * 获取最新的文章
+     * @return
+     */
+    public CataLogDTO getLastestArticle(){
+        CataLogDO cataLogDO = cataLogRepository.getLastestArticle();
+        CataLogDTO cataLogDTO = CataLogDTO.ofDO(cataLogDO);
+        return cataLogDTO;
+    }
+
+    /**
+     * 根据文章标题模糊搜索
+     * @param code
+     * @return
+     */
     public List<CataLogDTO> findArticleCodesByCodeLike(String code) {
         List<CataLogDO> result = cataLogRepository.findCodesByTypeAndCodeLike(CataLogType.ARTICLE , code);
         if(CollectionUtils.isEmpty(result)) {
@@ -84,5 +110,6 @@ public class ArticleManager {
         List<CataLogDTO> cataLogDTOList = CataLogDTO.ofDO(result);
         return cataLogDTOList;
     }
+
 
 }

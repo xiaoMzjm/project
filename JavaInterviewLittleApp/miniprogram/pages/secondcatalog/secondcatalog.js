@@ -19,6 +19,9 @@ Page({
 
   onReady: function (e) {
     console.info("onReady,初始化二级目录");
+    wx.showLoading({
+      title: '加载中',
+    });
     this.initCataLog();
   },
 
@@ -55,9 +58,10 @@ Page({
         that.setData({
           list: JSON.parse(serverResult.data.cataLog)
         });
-
+        wx.hideLoading();
       },
       fail: function (e) {
+        wx.hideLoading();
         wx.showModal({
           title: "系统维护中，请稍后重试",
           content: '',
