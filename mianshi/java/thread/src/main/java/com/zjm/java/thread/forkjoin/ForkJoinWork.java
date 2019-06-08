@@ -29,6 +29,11 @@ public class ForkJoinWork extends RecursiveTask<Long> {
 
                 }
                 sum += i;
+
+                // 测试抛异常能否比抓住
+//                if(start < 200) {
+//                    throw new RuntimeException("omg");
+//                }
             }
         }
         else {
@@ -46,9 +51,13 @@ public class ForkJoinWork extends RecursiveTask<Long> {
 
     public static void main(String[] args) {
         Long e = 1000L;
+
+        // 1. 创建任务
         ForkJoinTask<Long> task = new ForkJoinWork(0L , e);
+        // 2. 创建线程池
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         Long start = System.nanoTime() / 1000000;
+        // 3. 执行任务
         Long result = forkJoinPool.invoke(task);
         Long end = System.nanoTime() / 1000000;
         System.out.println("fork join 结果="+result+",用时"+(end-start)+"ms");

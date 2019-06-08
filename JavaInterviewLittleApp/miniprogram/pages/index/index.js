@@ -7,12 +7,24 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 一级目录
     grids: '',
     headerPicUrl: '',
     inputShowed: false,//鼠标聚焦搜索框
     inputVal: "",
     searchCataLogVOList: '',
-    noticeList: ''
+    noticeList: '',
+    // 导航栏两个属性
+    TabCur: 0,
+    scrollLeft: 0,
+    // 二级目录
+    secondcataloglist:'',
+    secondCatalogCode:'',
+    // 手势
+    touchstartx:'',
+    touchstarty:'',
+    touchendx:'',
+    touchendy:''
   },
 
   /**
@@ -25,15 +37,17 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function (options) {
-    console.info("onReady，获取图片和一级目录");
     this.init();
   },
 
+  /**
+   * 总初始化函数
+   */
   init:function(){
     this.initPic();
     this.initCataLog();
     // this.initNotice();
-    this.initLastestArticle();
+    // this.initLastestArticle();
   },
 
   /**
@@ -76,7 +90,7 @@ Page({
   },
 
   /**
-   * 初始化九宫格目录
+   * 初始一级目录
    */
   initCataLog : function(){
     let that = this;
@@ -99,10 +113,13 @@ Page({
         }
         console.info("index.js|initCataLog method|serverResult=");
         console.info(serverResult);
+        let cataLog = JSON.parse(serverResult.data.cataLog);
         that.setData({
-          grids: JSON.parse(serverResult.data.cataLog)
+          grids: cataLog,
+          secondCatalogCode: cataLog[0].code
         });
-
+        // 加载二级目录
+        that.initSecondCataLog();
       },
       fail: function (e) {
         wx.showModal({
@@ -211,7 +228,7 @@ Page({
   },
 
   /**
-   * 搜索相关
+   * 搜索框的事件函数
    */
   showInput: function () {
     console.info("showInput，点击搜索框时触发的函数");
@@ -241,7 +258,6 @@ Page({
     if (e.detail.value==''){
         return;
     }
-
     let that = this;
     wx.request({
       url: app.searchUrl(),
@@ -277,58 +293,230 @@ Page({
         });
       }
     })
-
-
     this.setData({
       inputVal: e.detail.value
     });
   },
 
+
+
+  /**
+   * 导航栏点击事件
+   */
+  tabSelect:function(e){
+    console.info("index.js|tabSelect|e=");
+    console.info(e);
+    this.setData({
+      TabCur: e.currentTarget.dataset.id,
+      secondCatalogCode: e.currentTarget.dataset.code
+    })
+    this.tabSelctById();
+  },
+  tabSelctById:function(){
+    let id = this.data.TabCur;
+    console.info("index.js|tabSelctById|id="+id);
+    let secondCatalogCode = this.data.secondCatalogCode;
+    this.setData({
+      TabCur: id,
+      scrollLeft: (id - 1) * 60
+    })
+    // 加载二级目录
+    this.initSecondCataLog();
+  },
+
+
+
+  /**
+   *初始化二级目录
+  */
+  initSecondCataLog: function () {
+    console.info("index.js|initSecondCataLog|this.data=");
+    console.info(this.data);
+    if (!this.data.secondCatalogCode) {
+      that.setData({
+        secondcataloglist: ''
+      });
+      return;
+    }
+    wx.showLoading({
+      title: '加载中',
+    });
+    let that = this;
+    wx.request({
+      url: app.catalogUrl() + "/" + that.data.secondCatalogCode,
+      data: {},
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      method: 'GET',
+      success: function (result) {
+        let serverResult = result.data;
+        if (!serverResult.success) {
+          wx.showModal({
+            title: "获取二级目录失败",
+            content: serverResult.errorMsg,
+            showCancel: false,
+          });
+          return;
+        }
+        console.info("index.js|initSecondCataLog|获取二级目录，serverResult=");
+        console.info(serverResult);
+        if (!serverResult.data || !serverResult.data.cataLog) {
+          wx.hideLoading();
+          that.setData({
+            secondcataloglist: ''
+          });
+          return;
+        }
+
+        console.info(JSON.parse(serverResult.data.cataLog));
+        that.setData({
+          secondcataloglist: JSON.parse(serverResult.data.cataLog)
+        });
+        wx.hideLoading();
+      },
+      fail: function (e) {
+        wx.hideLoading();
+        wx.showModal({
+          title: "系统维护中，请稍后重试",
+          content: '',
+          showCancel: false,
+        });
+      }
+    })
+  },
+
+
+  /**
+   * 手势
+   */
+  touchstart:function(e){
+    console.info("index.js|touchstart|e=");
+    console.info(e);
+    this.setData({
+      touchstartx: e.changedTouches[0].pageX,
+      touchstarty: e.changedTouches[0].pageY,
+    });
+  },
+  touchend: function (e) {
+    console.info("index.js|touchend|e=");
+    console.info(e);
+    console.info(this.data);
+    let startx = this.data.touchstartx;
+    let starty = this.data.touchstarty;
+    let endx = e.changedTouches[0].pageX;
+    let endy = e.changedTouches[0].pageY;
+    let xchange = endx - startx;
+    let ychange = endy - starty;
+    console.info("x变化=" + xchange);
+    console.info("y变化=" + ychange);
+    if (Math.abs(ychange) * 4 < Math.abs(xchange)) {
+      console.info("x变化率大于y的4倍，");
+      if (xchange < 0) {
+        console.info("从右往左划");
+        this.onNextTab();
+      }
+      else if(xchange > 0){
+        console.info("从左往右划");
+        this.onPreTab();
+      }
+    }
+  },
+  onPreTab:function(){
+    let tabid = this.data.TabCur;
+    let code = this.calSecondCatalogCode('pre');
+    if (tabid == 0) {
+      return;
+    }
+    this.setData({
+      TabCur: Number(tabid) - 1
+    });
+    this.setData({
+      secondCatalogCode: code
+    });
+    this.tabSelctById();
+  },
+  onNextTab:function(){
+    let tabid = this.data.TabCur;
+    let maxid = this.data.grids.length - 1;
+    let code = this.calSecondCatalogCode('next');
+    if (maxid == tabid) {
+      return;
+    }
+    this.setData({
+      TabCur: Number(tabid) + 1
+    });
+    this.setData({
+      secondCatalogCode: code
+    });
+    this.tabSelctById();
+  },
+  calSecondCatalogCode:function(preOrNext){
+    let secondCatalogCode = this.data.secondCatalogCode;
+    let grids = this.data.grids;
+    let pre = secondCatalogCode;
+    let next = secondCatalogCode;
+    for (let i = 0; i < grids.length ; i++) {
+      if (secondCatalogCode == grids[i].code) {
+        if (grids.length > i+1) {
+          console.info
+          next = grids[i+1].code;
+        }
+        if(i > 0) {
+          pre = grids[i - 1].code;
+        }
+      }
+    }
+    console.info("index.js|calSecondCatalogCode|pre="+pre + ',next=' + next);
+    if(preOrNext == 'pre') {
+      return pre;
+    }
+    else {
+      return next;
+    }
+  },
+
+
+
+
+
+
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.info("onShow，还原搜索栏");
+    console.info("index.js|onShow|还原搜索栏");
     this.setData({
       inputVal: '',
       inputShowed: false
     });
   },
-
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
   },
-
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
   },
-
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    console.info("用户下拉刷新onUnload，重新刷新图片和目录");
+    console.info("index.js|onPullDownRefresh|用户下拉刷新onUnload，重新刷新图片和目录");
     this.init();
     wx.stopPullDownRefresh();
   },
-
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
   },
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
   }
 })

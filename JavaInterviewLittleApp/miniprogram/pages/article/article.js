@@ -10,16 +10,47 @@ Page({
   data: {
     title:"",
     wemark: "",
-    catalogVO: ''
+    catalogVO: '',
+    code:'',
+    isShouCang:false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      code: options.code
-    });
+    if (options.code) {
+      this.setData({
+        code: options.code
+      });
+      console.info('my|onLoad|ssssss=');
+      wx.getStorage({
+        key: 'readHistory',
+        success: function(res) {
+          console.info('my|onLoad|readHistory=');
+          console.info(res.data);
+          let newArray = new Array();
+          for (let i = 0; i < res.data.length ; i++) {
+            if (options.code != res.data[i]) {
+              newArray.push(res.data[i]);
+            }
+          }
+          newArray.push(options.code);
+          wx.setStorage({
+            key: "readHistory",
+            data: newArray
+          })
+        },
+        fail:function(){
+          let readHistory = new Array();
+          readHistory.push(options.code);
+          wx.setStorage({
+            key: "readHistory",
+            data: readHistory
+          })
+        }
+      })
+    }
   },
 
   /**
@@ -29,9 +60,20 @@ Page({
     wx.showLoading({
       title: '加载中',
     });
-    this.initArticle();
+    this.init();
   },
 
+  /**
+   * 统一初始化入口
+   */
+  init:function(){
+    this.initArticle();
+    this.initShouCang();
+  },
+
+  /**
+   * 获取文章
+   */
   initArticle:function(){
     // 获取文章
     let that = this;
@@ -60,8 +102,6 @@ Page({
           return;
         }
         var md = serverResult.data.cataLog;
-        console.info("md:");
-        console.info(md);
 
         that.setData({
           wemark: md,
@@ -79,6 +119,139 @@ Page({
       }
     })
   },
+
+  /**
+   * 记录浏览记录
+   */
+  recordHistory:function(){
+    if (this.data.code) {
+      let code = this.data.code;
+      console.info('my|onLoad|ssssss=');
+      wx.getStorage({
+        key: 'readHistory',
+        success: function (res) {
+          console.info('my|onLoad|readHistory=');
+          console.info(res.data);
+          let newArray = new Array();
+          for (let i = 0; i < res.data.length; i++) {
+            if (code != res.data[i]) {
+              newArray.push(res.data[i]);
+            }
+          }
+          newArray.push(code);
+          wx.setStorage({
+            key: "readHistory",
+            data: newArray
+          });
+        },
+        fail: function () {
+          let readHistory = new Array();
+          readHistory.push(code);
+          wx.setStorage({
+            key: "readHistory",
+            data: readHistory
+          })
+        }
+      })
+    }
+  },
+  /**
+   * 初始化收藏
+   */
+  initShouCang:function(){
+    let that = this;
+    let code = this.data.code;
+    wx.getStorage({
+      key: 'shouCangList',
+      success: function (res) {
+        let shouCangList = res.data;
+        console.info("article|initShouCang|shouCangList=");
+        console.info(shouCangList);
+        for (let i = 0; i < shouCangList.length; i++) {
+          if (shouCangList[i] == code) {
+            that.setData({
+              isShouCang:true
+            });
+          }
+        }
+      }
+    })
+  },
+  /**
+   * 收藏
+   */
+  onTabShouCang:function(){
+    console.info("article|onTabShouCang|code="+this.data.code);
+    let code = this.data.code;
+    let shouCangList = '';
+    let newShouCangList = new Array();
+    let that = this;
+    wx.getStorage({
+      key: 'shouCangList',
+      success: function(res) {
+        shouCangList = res.data;
+        console.info("=========");
+        console.info(shouCangList);
+        console.info(code);
+        for (let i = 0; i < shouCangList.length ; i++) {
+          if (shouCangList[i] != code) {
+            newShouCangList.push(shouCangList[i]);
+          }
+        }
+        
+        if(that.data.isShouCang) {
+          wx.showToast({
+            title: '取消成功',
+            icon: 'success',
+            duration: 2000
+          });
+          that.setData({
+            isShouCang: false
+          });
+        }
+        else {
+          newShouCangList.push(code);
+          wx.showToast({
+            title: '收藏成功',
+            icon: 'success',
+            duration: 2000
+          });
+          that.setData({
+            isShouCang: true
+          });
+        }
+        
+        wx.setStorage({
+          key: 'shouCangList',
+          data: newShouCangList.length == 0 ? '' : newShouCangList,
+        });
+        
+      },
+      fail:function(){
+        newShouCangList.push(code);
+        console.info("article|onTabShouCang|newShouCangList=" + newShouCangList);
+        wx.setStorage({
+          key: 'shouCangList',
+          data: newShouCangList,
+        });
+        wx.showToast({
+          title: '收藏成功',
+          icon: 'success',
+          duration: 2000
+        });
+        that.setData({
+          isShouCang: true
+        });
+      }
+    })
+  },
+
+
+
+
+
+
+
 
   /**
    * 生命周期函数--监听页面显示

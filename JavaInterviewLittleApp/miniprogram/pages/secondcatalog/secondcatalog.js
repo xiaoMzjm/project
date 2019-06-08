@@ -7,29 +7,42 @@ Page({
     list: ''
   },
 
-  
-
+  /**
+   * 获取二级目录code
+   */
   onLoad: function (options) {
-    console.info("second options");
+    console.info("secondcatalog.js|onLoad|second options");
     console.info(options);
-    this.setData({
-      code: options.code
-    });
+    if (options.code) {
+      this.setData({
+        code: options.code
+      });
+    }
   },
 
   onReady: function (e) {
-    console.info("onReady,初始化二级目录");
-    wx.showLoading({
-      title: '加载中',
-    });
+    this.init();
+  },
+
+  /**
+   * 统一初始化入口
+   */
+  init:function(){
     this.initCataLog();
   },
 
+  /**
+   *初始化目录
+   */
   initCataLog:function(){
+    console.info("secondcatalog.js|initCataLog|this.data=");
     console.info(this.data);
     if(!this.data.code) {
       return;
     }
+    wx.showLoading({
+      title: '加载中',
+    });
     let that = this;
     wx.request({
       url: app.catalogUrl() + "/" + that.data.code,
@@ -51,6 +64,7 @@ Page({
         console.info("获取二级目录，serverResult=");
         console.info(serverResult);
         if (!serverResult.data || !serverResult.data.cataLog) {
+          wx.hideLoading();
           return;
         }
 

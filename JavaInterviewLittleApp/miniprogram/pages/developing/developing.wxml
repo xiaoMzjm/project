@@ -1,0 +1,7 @@
+
+    <view class="weui-footer">
+        <view class="weui-footer__text">该功能正在开发中，敬请期待</view>
+        <view class="weui-footer__text">
+          <button open-type='feedback' style="background-color: #ffffff;border:0px;color:#777777;margin-top:30px;padding:0px;font-size:14px;">意见反馈 javaclassroom@163.com</button> 
+        </view>
+    </view>

@@ -1,9 +1,10 @@
-<view class="page md-container">
+<view class="page md-container padding">
     <!-- 标题 -->
     <view class="page__hd">
         <view class="page__title">{{catalogVO.code}}</view>
         <view class="page__desc">{{catalogVO.gmtCreate}}</view>
     </view>
+
 
     <!-- 正文 -->
     <view class="page__bd">
@@ -13,10 +14,18 @@
         <view class="weui-loadmore__tips weui-loadmore__tips_in-line">小编努力编写中,敬请期待</view>
     </view>
 
-    <view wx:if="{{catalogVO}}" class="readed">
-      阅读 {{catalogVO.pv}}
-      <button open-type="share" class="shareButton"><text class="sharetext">分享</text><image class="kind-list__img" src="/images/shareothersgray.png" ></image></button>
+
+    <!-- 底部功能 -->
+    <view class="bg-white">
+      <view class="grid col-3 margin-bottom text-center">
+        <view>阅读 {{catalogVO.pv}}</view>
+        <view bindtap="onTabShouCang">{{isShouCang==true ? '取消收藏' : '收藏'}}</view>
+        <view>
+          <button open-type="share" class="shareButton"><text class="sharetext">分享</text><image class="kind-list__img" src="/images/shareothersgray.png" ></image></button>
+        </view>
+      </view>
     </view>
+
     
 
     <!-- 页脚-->

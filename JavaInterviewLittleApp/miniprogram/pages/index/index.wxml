@@ -1,9 +1,9 @@
 
 
 <view class="page">
-    <!-- 搜索 -->
+    <!-- 搜索框 -->
     <view class="weui-search-bar">
-        <button open-type="share" class="shareButton"><image class="kind-list__img" src="/images/shareothers.png" ></image></button>
+        <button open-type="share" class="shareButton"><image class="kind-list__img" src="/images/share_777777.png" ></image></button>
         
         <view class="weui-search-bar__form">
             <view class="weui-search-bar__box">
@@ -15,11 +15,12 @@
             </view>
             <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
                 <icon class="weui-icon-search" type="search" size="14"></icon>
-                <view class="weui-search-bar__text">输入文件标题</view>
+                <view class="weui-search-bar__text">输入文章标题</view>
             </label>
         </view>
-        <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+        <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消    </view>
     </view>
+    <!-- 分享按钮 -->
     <view class="weui-cells searchbar-result" wx:if="{{searchCataLogVOList.length > 0 && inputVal.length > 0}}">
         <view wx:for="{{searchCataLogVOList}}">
             <navigator url="/pages/article/article?code={{item.code}}" class="weui-cell" hover-class="weui-cell_active">
@@ -30,7 +31,8 @@
         </view>
     </view>
     
-    <!-- 图片轮播 -->
+    <!-- weui图片轮播 -->
+    <!-- 
     <swiper
       indicator-dots="true"
       autoplay="true"
@@ -42,6 +44,24 @@
         </swiper-item>
       </view>
     </swiper>
+    -->
+
+    <!-- colorui图片轮播-卡片 -->
+    <swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#67865f">
+      <swiper-item wx:for="{{headerPicUrl}}" wx:key class="{{cardCur==index?'cur':''}}">
+        <view class="swiper-item">
+          <image src="{{item}}" mode="aspectFill" ></image>
+        </view>
+      </swiper-item>
+    </swiper>
+    <!-- colorui图片轮播-全屏 -->
+    <!--
+    <swiper class="screen-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" indicator-color="#8799a3" indicator-active-color="#0081ff">
+      <swiper-item wx:for="{{headerPicUrl}}" wx:key>
+        <image src="{{item}}" mode="aspectFill"></image>
+      </swiper-item>
+    </swiper>
+    -->
 
     <!-- 标题 -->
     <!-- <view class="page__hd">
@@ -53,6 +73,7 @@
     <view class="page__bd">
 
         <!-- 公告 -->
+        <!--
         <view class="notice_view" wx:if="{{noticeList.length > 0}}">
           <image class="kind-list__img notice_image" src="/images/notice.png" ></image>
           <swiper class="swiper_container" 
@@ -69,8 +90,17 @@
             </block>
           </swiper>
         </view>
+        -->
 
+        <!--导航栏-->
+        <scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}">
+          <view class="cu-item {{index==TabCur?'text-green cur':''}}" wx:for="{{grids}}" wx:key bindtap="tabSelect" data-id="{{index}}" data-code="{{item.code}}" wx:for-index="index" >
+            {{item.name}}
+          </view>
+        </scroll-view>
+        
         <!-- 九宫格 -->
+        <!-- 
         <view class="weui-grids">
             <block wx:for="{{grids}}">
                 <navigator url="/pages/secondcatalog/secondcatalog?code={{item.code}}" class="weui-grid" hover-class="weui-grid_active">
@@ -78,9 +108,37 @@
                     <view class="weui-grid__label">{{item.name}}</view>
                 </navigator>
             </block>
-        </view>        
+        </view>   
+        -->
+
+        <!-- 列表 -->
+        <view  wx:if="{{secondcataloglist}}" class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}}" bind:touchstart="touchstart" bind:touchend="touchend">
+          <block wx:for="{{secondcataloglist}}" wx:for-item="firstitem"  wx:for-index="index" >
+            <view class="cu-item">
+              <view class="content padding-tb-sm">
+                <view>
+                  <text class="text-blue margin-right-xs"></text>{{firstitem.name}}
+                </view>
+                <block wx:for="{{firstitem.pages}}" wx:for-item="seconditem">
+                  <view class="text-gray text-sm">
+                    <navigator url="/pages/article/article?code={{seconditem.code}}" class="margin-right-xs">
+                        <view class="margin-right-xs">{{seconditem.name}}</view>
+                    </navigator>
+                  </view>
+                </block>
+              </view>
+            </view>
+          </block> 
+        </view>
+        <view wx:if="{{!secondcataloglist}}" style="margin-top:20px;text-align:center;height:300px;" bind:touchstart="touchstart" bind:touchend="touchend">
+            小编正在努力编写中，敬请期待
+        </view>
+
+
+        
+             
     </view>
 
     <!-- 页脚 -->
-    <!-- <include src="/pages/footer/footer.wxml" /> -->
+    <!--<include src="/pages/footer2/footer2.wxml" />-->
 </view>

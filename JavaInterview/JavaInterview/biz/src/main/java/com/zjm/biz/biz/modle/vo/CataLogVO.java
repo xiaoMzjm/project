@@ -1,12 +1,14 @@
 package com.zjm.biz.biz.modle.vo;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.zjm.biz.biz.modle.datao.CataLogDO;
 import com.zjm.biz.biz.modle.dto.CataLogDTO;
+import javafx.scene.input.DataFormat;
 import lombok.Data;
 import org.apache.commons.collections.CollectionUtils;
 
@@ -42,7 +44,7 @@ public class CataLogVO {
         if(cataLogDTO == null) {
             return null;
         }
-        DateFormat dateFormat = DateFormat.getDateInstance();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         CataLogVO cataLogVO = new CataLogVO();
         cataLogVO.setId(cataLogDTO.getId());

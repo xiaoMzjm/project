@@ -1,33 +1,44 @@
 /* pages/grid/grid.wxss */
-page,.page{
-  height:100%;
-}
 
-/** 图片轮播 **/
-.headerpic-image{
-  width:100%;
+page,.page{
   height:100%;
 }
 
 /** 搜索栏 **/
 .weui-search-bar{
-  border-top:0rpx solid #d7d6dc;
-  border-bottom:0rpx solid #d7d6dc;
-  background-color: #67865f;
+  border-top:0rpx solid #777777;
+  border-bottom:0rpx solid #777777;
+  background-color: #ffffff;
 }
 .weui-search-bar__cancel-btn{
-  color: white
+  color: #777777
+}
+.weui-search-bar__form{
+  border:0;
+}
+.weui-search-bar__label{
+  background-color: #f8f8f8;
 }
 .kind-list__img{width:30px;height:30px;margin-right: 10px;}
 .shareButton{
   margin:0px;
   padding:0px;
   line-height: 0px;
-  background-color: #67865f;
+  background-color: #ffffff;
   border: 0px;
 }
 .shareButton::after {
   border: 0;
+}
+
+
+/** 图片轮播 **/
+.headerpic-image{
+  width:100%;
+  height:100%;
+}
+swiper {
+  background-color:#ffffff;
 }
 
 

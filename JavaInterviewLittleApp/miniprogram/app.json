@@ -2,19 +2,37 @@
   "pages": [
     "pages/index/index",
     "pages/secondcatalog/secondcatalog",
-    "pages/article/article"
+    "pages/article/article",
+    "pages/my/my"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "#ffffff",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#67865f",
+    "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "Java面试小课堂",
-    "navigationBarTextStyle": "white",
+    "navigationBarTextStyle": "black",
     "enablePullDownRefresh":true
   },
-  "component": true,
   "usingComponents": {
     "wemark": "thirdcore/wemark/wemark"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "tabBar":{
+    "color":"#a6a6a6",
+    "selectedColor":"#67865f",
+    "list":[
+      {
+        "pagePath":"pages/index/index",
+        "text":"首页",
+        "iconPath":"images/home.png",
+        "selectedIconPath":"images/home_h.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/people.png",
+        "selectedIconPath": "images/people_h.png"
+      }
+    ]
+  }
 }

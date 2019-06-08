@@ -1,5 +1,7 @@
 /**app.wxss**/
 @import 'style/weui.wxss';
+@import "thirdcore/colorui/main.wxss";
+@import "thirdcore/colorui/icon.wxss";
 
 page{
     background-color: #F8F8F8;

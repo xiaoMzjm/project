@@ -1,0 +1,50 @@
+<view class="cu-bar bg-white solid-bottom">
+  <view class="action" style="padding-bottom:20px;">
+    <view wx:if="{{userInfo}}" class="cu-avatar xl round margin-left" style="background-image:url({{userInfo.avatarUrl}});"></view>
+    <text wx:if="{{userInfo}}" style="margin-left:20px">{{userInfo.nickName}}</text>
+    <button wx:if="{{!userInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="width:700rpx;background-color:#67865f;color:#ffffff">点击登录</button>
+  </view>
+</view>
+
+<!-- 导航 -->
+<scroll-view scroll-x class="bg-white nav text-center" style="top:{{CustomBar}}px">
+  <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{tabNav}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+    {{tabNav[index]}}
+  </view>
+</scroll-view>
+<block wx:if="{{TabCur==0}}">
+  <!-- 列表 -->
+  <view  wx:if="{{readHistory}}" class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}}">
+    <block wx:for="{{readHistory}}" wx:for-item="firstitem"  wx:for-index="index" >
+      <view class="cu-item">
+        <view class="content padding-tb-sm">
+          <view>
+            <text class="text-blue margin-right-xs"></text>
+            <navigator url="/pages/article/article?code={{firstitem}}" class="margin-right-xs">{{firstitem}}</navigator>
+          </view>
+        </view>
+      </view>
+    </block> 
+  </view>
+  <view wx:if="{{!readHistory}}" style="margin-top:20px;text-align:center;height:300px;" bind:touchstart="touchstart" bind:touchend="touchend">
+      您还没有浏览记录喔！
+  </view>
+</block>
+<block wx:if="{{TabCur==1}}" >
+  <!-- 列表 -->
+  <view  wx:if="{{shouCangList}}" class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}}">
+    <block wx:for="{{shouCangList}}" wx:for-item="firstitem"  wx:for-index="index" >
+      <view class="cu-item">
+        <view class="content padding-tb-sm">
+          <view>
+            <text class="text-blue margin-right-xs"></text>
+            <navigator url="/pages/article/article?code={{firstitem}}" class="margin-right-xs">{{firstitem}}</navigator>
+          </view>
+        </view>
+      </view>
+    </block> 
+  </view>
+  <view wx:if="{{!shouCangList}}" style="margin-top:20px;text-align:center;height:300px;" bind:touchstart="touchstart" bind:touchend="touchend">
+      您还没有收藏记录喔！
+  </view>
+</block>

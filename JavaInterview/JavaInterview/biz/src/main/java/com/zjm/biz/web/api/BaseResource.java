@@ -18,7 +18,7 @@ public class BaseResource {
     @ApiOperation(value = "index" , notes = "index")
     @RequestMapping(value = "/" , method = RequestMethod.GET)
     public String index(){
-        return "健身信息展示";
+        return "index";
     }
 
     @ApiOperation(value = "hello接口" , notes = "hello")
