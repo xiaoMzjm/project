@@ -36,3 +36,22 @@ page{
     text-align: left;
     font-size: 14px;
 }
+
+/** 透明的按钮**/
+.blank_button {
+  margin:0px;
+  padding:0px;
+  line-height: 20px;
+  border: 0px;
+  background-color: #ffffff;
+  font-size: 16px;
+  color:#777777;
+}
+.blank_button::after {
+  border: 0;
+}
+
+/** wemark H1 标题**/
+.wemark_block_h1{
+  font-size: 60rpx;
+}

@@ -17,11 +17,11 @@
 
     <!-- 底部功能 -->
     <view class="bg-white">
-      <view class="grid col-3 margin-bottom text-center">
+      <view class="grid col-3 margin-bottom text-center bottomaction">
         <view>阅读 {{catalogVO.pv}}</view>
         <view bindtap="onTabShouCang">{{isShouCang==true ? '取消收藏' : '收藏'}}</view>
         <view>
-          <button open-type="share" class="shareButton"><text class="sharetext">分享</text><image class="kind-list__img" src="/images/shareothersgray.png" ></image></button>
+          <button open-type="share" class="blank_button"><text class="sharetext">分享</text><image class="kind-list__img" src="/images/shareothersgray.png" ></image></button>
         </view>
       </view>
     </view>

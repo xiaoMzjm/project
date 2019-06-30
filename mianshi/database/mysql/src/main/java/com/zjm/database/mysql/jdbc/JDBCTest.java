@@ -41,4 +41,31 @@ public class JDBCTest {
         statement.close();
         connection.close();
     }
+
+    static class InsertClass{
+
+        public static void main(String[] args) throws Exception{
+            // 1. 注册驱动
+            Class.forName("com.mysql.cj.jdbc.Driver" , false , JDBCTest.class.getClassLoader());
+
+            // 2. 获取连接
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?useUnicode=true"
+                    + "&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false" , "test" , "test");
+
+            // 3. 创建Statement
+            Statement statement = connection.createStatement();
+
+            // 4. 执行SQL
+            for(int i = 0 ; i < 2000000 ; i ++) {
+                String sql = "insert into bigtable(name,age) values('name" + i + "'," + i + ")";
+                statement.execute(sql);
+            }
+
+
+            // 6. 关闭连接
+            statement.close();
+            connection.close();
+        }
+
+    }
 }

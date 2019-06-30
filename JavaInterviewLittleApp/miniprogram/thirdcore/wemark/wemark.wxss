@@ -6,9 +6,22 @@
 	line-height: 1.8em;
 }
 .wemark_block_h1{
-	font-size:40rpx;
-	text-align: center;
+	font-size:50rpx;
+  /**不喜欢居中，把居中去掉**/
+	/**text-align: center;**/
 	margin-bottom:1em;
+  margin-top:40px;
+  font-weight: 500;
+  position: relative;
+}
+.wemark_block_h1:after{
+  content: '';                 /*CSS伪类用法*/
+  position: absolute;         /*定位背景横线的位置*/
+  top: 130%;
+  background: #e0e0e0;       /*宽和高做出来的背景横线*/
+  width: 100%;
+  height: 1px;
+  left:0px;
 }
 .wemark_block_h2{
 	font-size:40rpx;
@@ -39,7 +52,7 @@
 	width:100%;
 }
 .wemark_block_blockquote_p{
-	margin-top:1em;
+	margin-top:2em;
 	margin-bottom:1em;
 	padding:10px 0 10px 1em;
 	font-size:28rpx;
@@ -48,20 +61,29 @@
 }
 .wemark_block_ul_li_p::before{
 	content:'• ';
+  padding-right:5px;
 }
 .wemark_block_ul_li_ul_li_p::before,
 .wemark_block_ol_li_ul_li_p::before{
 	content:'◦ ';
+  padding-right:5px;
 }
 .wemark_block_ul_li_ul_li_p,
 .wemark_block_ul_li_ol_li_p,
 .wemark_block_ol_li_ul_li_p,
 .wemark_block_ol_li_ol_li_p{
-	padding-left: 1em;
+	padding-left: 2em;
+}
+/** add by heijue **/
+.wemark_block_ul_li_p,
+.wemark_block_ol_li_p{
+  margin-top:10rpx;
+  padding-left: 1em;
 }
 .wemark_block_ul_li_p:last{
 	margin-bottom:1em;
 }
+/** add by heijue **/
 .wemark_block_code{
 	display: block;
 	padding:10px;
@@ -70,6 +92,11 @@
 	border:1px solid #f0f0f0;
 	white-space: pre;
 	overflow: auto;
+  background-color: #2b2b2b;
+}
+/** add by heijue **/
+.wemark_inline_code_text{
+  color:#d7dbde;
 }
 .wemark_block_table{
 	width: 100%;
@@ -132,15 +159,29 @@
 	height:auto;
 }
 .wemark_inline_code{
-	background:#f0f0f0;
+	background:#edebed;
 	padding:3px 5px;
 	word-wrap:break-word;
+  border-radius:5px;
+  margin-left:5px;
+  margin-right:5px;
 }
 .wemark_inline_text{
 	word-wrap:break-word;
+}
+.wemark_block_code .wemark_inline_text{
+  color: #e0e0e0;
 }
 .wemark_inline_link{
 	display: inline;
 	color: blue;
 	word-wrap:break-word;
+}
+/** add by heijue **/
+.wemark_inline_code_operator{
+  color:#e0e0e0;
+}
+/** add by heijue **/
+.wemark_inline_code_annotation{
+  color:#e0e0e0;
 }

@@ -6,25 +6,16 @@
   color: gray
 }
 
+.bottomaction{
+  color:#777777;
+}
 .kind-list__img{
   width:20px;
   height:20px;
   margin-right: 10px;
   margin-left:5px;
-}
-.shareButton{
-  margin:0px;
-  padding:0px;
-  line-height: 20px;
-  border: 0px;
-  float:right;
-  color:gray;
-  background-color: #ffffff;
-}
-.shareButton::after {
-  border: 0;
+  top:5px;
 }
 .sharetext{
   position:relative;
-  bottom: 5px;
 }

@@ -66,6 +66,16 @@ Component({
 				}
 
             }
-        }
-    }
+        },
+      wemarkTabImage(e){
+        console.info("article|wemark_tab_image|e=");
+        console.info(e);
+        wx.previewImage({
+          current: e.currentTarget.dataset.src, // 当前显示图片的http链接
+          urls: [e.currentTarget.dataset.src] // 需要预览的图片http链接列表
+        })
+      }
+    },
+    
 });
+

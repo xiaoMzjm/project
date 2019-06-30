@@ -99,6 +99,7 @@ Page({
           return;
         }
         if (!serverResult.data || !serverResult.data.cataLog)  {
+          wx.hideLoading();
           return;
         }
         var md = serverResult.data.cataLog;
@@ -245,7 +246,7 @@ Page({
       }
     })
   },
-
+ 
 
 
 

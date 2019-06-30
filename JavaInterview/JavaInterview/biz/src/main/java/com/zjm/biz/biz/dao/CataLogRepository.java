@@ -28,6 +28,16 @@ public interface CataLogRepository extends JpaRepository<CataLogDO, String> {
     List<CataLogDO> findCodesByTypeAndCodeLike(@Param("type") String type , @Param("code") String code);
 
     /**
+     * 根据code模糊搜索
+     * @param type
+     * @param name
+     * @return
+     */
+    @Query(value = "select * from catalog where name like CONCAT('%',:name,'%') and deleted != 1 and type = :type order by type asc limit 10", nativeQuery = true)
+    List<CataLogDO> findCodesByTypeAndNameLike(@Param("type") String type , @Param("name") String name);
+
+
+    /**
      * 获取最新文章
      * @return
      */

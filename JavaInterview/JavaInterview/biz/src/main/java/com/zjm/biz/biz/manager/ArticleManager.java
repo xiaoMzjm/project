@@ -36,7 +36,7 @@ public class ArticleManager {
      * @param code
      * @param cataLog
      */
-    public void insertOrUpdateCataLog(String type , String code ,String cataLog) {
+    public void insertOrUpdateCataLog(String type , String code ,String name , String fatherCode , String cataLog) {
         CataLogDTO cataLogDTO = getCataLogByCode(code);
         CataLogDO cataLogDO = CataLogDO.ofDTO(cataLogDTO);
 
@@ -46,6 +46,8 @@ public class ArticleManager {
                 throw new RuntimeException("该code记录已存在，但是type不一致");
             }
             cataLogDO.setCataLog(cataLog);
+            cataLogDO.setName(name);
+            cataLogDO.setFatherCode(fatherCode);
             cataLogDO.setGmtModified(new Date());
         }
         // 否则新增
@@ -58,6 +60,8 @@ public class ArticleManager {
             cataLogDO.setType(type);
             cataLogDO.setCode(code);
             cataLogDO.setCataLog(cataLog);
+            cataLogDO.setName(name);
+            cataLogDO.setFatherCode(fatherCode);
         }
         cataLogDO = cataLogRepository.save(cataLogDO);
     }
@@ -97,12 +101,27 @@ public class ArticleManager {
     }
 
     /**
-     * 根据文章标题模糊搜索
+     * 根据文章Code模糊搜索
      * @param code
      * @return
      */
     public List<CataLogDTO> findArticleCodesByCodeLike(String code) {
         List<CataLogDO> result = cataLogRepository.findCodesByTypeAndCodeLike(CataLogType.ARTICLE , code);
+        if(CollectionUtils.isEmpty(result)) {
+            return null;
+        }
+        result.stream().forEach((item) -> item.setCataLog(null));
+        List<CataLogDTO> cataLogDTOList = CataLogDTO.ofDO(result);
+        return cataLogDTOList;
+    }
+
+    /**
+     * 根据文章name模糊搜索
+     * @param name
+     * @return
+     */
+    public List<CataLogDTO> findArticleCodesByNameLike(String name) {
+        List<CataLogDO> result = cataLogRepository.findCodesByTypeAndNameLike(CataLogType.ARTICLE , name);
         if(CollectionUtils.isEmpty(result)) {
             return null;
         }

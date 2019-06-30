@@ -88,7 +88,7 @@ exports.getRichTextNodes = function(parsedData){
 						attrs: {
 							mode: 'widthFix',
 							class: 'wemark_inline_image',
-							src: childNode.src
+              src: childNode.src,
 						}
 					});
 				}else if(childNode.type === 'table_th'){

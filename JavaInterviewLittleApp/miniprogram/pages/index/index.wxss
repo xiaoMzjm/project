@@ -15,21 +15,12 @@ page,.page{
 }
 .weui-search-bar__form{
   border:0;
+  background-color: #f8f8f8;
 }
 .weui-search-bar__label{
   background-color: #f8f8f8;
 }
 .kind-list__img{width:30px;height:30px;margin-right: 10px;}
-.shareButton{
-  margin:0px;
-  padding:0px;
-  line-height: 0px;
-  background-color: #ffffff;
-  border: 0px;
-}
-.shareButton::after {
-  border: 0;
-}
 
 
 /** 图片轮播 **/

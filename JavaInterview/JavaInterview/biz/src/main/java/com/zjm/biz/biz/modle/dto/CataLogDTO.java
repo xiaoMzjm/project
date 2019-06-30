@@ -40,6 +40,10 @@ public class CataLogDTO {
 
     private Integer pv;
 
+    private String name;
+
+    private String fatherCode;
+
     public static CataLogDTO ofDO(CataLogDO cataLogDO){
 
         if(cataLogDO == null) {
@@ -57,6 +61,8 @@ public class CataLogDTO {
         cataLogDTO.setVersion(cataLogDO.getVersion());
         cataLogDTO.setPv(cataLogDO.getPv());
         cataLogDTO.setCode(cataLogDO.getCode());
+        cataLogDTO.setName(cataLogDO.getName());
+        cataLogDTO.setFatherCode(cataLogDO.getFatherCode());
         return cataLogDTO;
     }
 

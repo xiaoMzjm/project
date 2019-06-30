@@ -57,6 +57,12 @@ public class CataLogDO{
     @Column
     private Integer pv;
 
+    @Column
+    private String name;
+
+    @Column(name="father_code")
+    private String fatherCode;
+
     public static CataLogDO ofDTO(CataLogDTO cataLogDTO){
         if(cataLogDTO == null) {
             return null;
@@ -73,6 +79,8 @@ public class CataLogDO{
         cataLogDO.setVersion(cataLogDTO.getVersion());
         cataLogDO.setPv(cataLogDTO.getPv());
         cataLogDO.setCode(cataLogDTO.getCode());
+        cataLogDO.setName(cataLogDTO.getName());
+        cataLogDO.setFatherCode(cataLogDTO.getFatherCode());
         return cataLogDO;
     }
 

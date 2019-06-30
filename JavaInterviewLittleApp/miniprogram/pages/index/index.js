@@ -24,7 +24,8 @@ Page({
     touchstartx:'',
     touchstarty:'',
     touchendx:'',
-    touchendy:''
+    touchendy:'',
+    xielv: 3.5
   },
 
   /**
@@ -44,6 +45,9 @@ Page({
    * 总初始化函数
    */
   init:function(){
+    this.setData({
+      TabCur:0
+    });
     this.initPic();
     this.initCataLog();
     // this.initNotice();
@@ -410,7 +414,7 @@ Page({
     let ychange = endy - starty;
     console.info("x变化=" + xchange);
     console.info("y变化=" + ychange);
-    if (Math.abs(ychange) * 4 < Math.abs(xchange)) {
+    if (Math.abs(ychange) * this.data.xielv < Math.abs(xchange)) {
       console.info("x变化率大于y的4倍，");
       if (xchange < 0) {
         console.info("从右往左划");

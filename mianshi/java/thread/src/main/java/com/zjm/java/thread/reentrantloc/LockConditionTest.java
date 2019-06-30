@@ -2,14 +2,8 @@ package com.zjm.java.thread.reentrantloc;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
-
-import oracle.jvm.hotspot.jfr.TraceTypes;
 
 /**
  * @author:小M
@@ -22,7 +16,7 @@ public class LockConditionTest {
     private final static Condition getCondition = lock.newCondition();
 
     private List list = new LinkedList();
-    private final static int MAX = 10;
+    private final static int MAX = 5;
     private Integer count = 0;
 
     private void put() throws Exception{
@@ -30,12 +24,12 @@ public class LockConditionTest {
         try {
             // 如果数组满了，则不满往里面新增元素
             while(count == MAX) {
-                System.out.println("数组满了，无法写入");
+                System.out.println("写线程：数组满了，无法写入，使用putCondition.await()阻塞");
                 putCondition.await();
             }
             list.add(1);
             count++;
-            System.out.println("添加了1个元素,count="+count);
+            System.out.println("写线程：添加了1个元素,count="+count);
             // 每添加新元素后，通知读线程读取，只唤醒1个线程
             getCondition.signal();
         }finally {
@@ -48,12 +42,12 @@ public class LockConditionTest {
         try {
             // 如果数组没有元素，则不再取数据
             while(0 == list.size()) {
-                System.out.println("数组为空，无法读取");
+                System.out.println("读线程：数组为空，无法读取，使用putCondition.await()阻塞");
                 putCondition.await();
             }
             list.remove(0);
             count --;
-            System.out.println("减少了1个元素,count="+count);
+            System.out.println("读线程：减少了1个元素,count="+count);
             // 每添取出一个元素后，通知写线程写入，只唤醒1个线程
             putCondition.signal();
         }finally {
@@ -65,7 +59,7 @@ public class LockConditionTest {
 
         final LockConditionTest lockConditionTest = new LockConditionTest();
 
-        for(int i = 0 ; i < 20 ; i++) {
+        for(int i = 0 ; i < 10 ; i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -78,9 +72,8 @@ public class LockConditionTest {
             }).start();
         }
 
-        System.out.println("==========");
 
-        for(int i = 0 ; i < 20 ; i++) {
+        for(int i = 0 ; i < 10 ; i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
