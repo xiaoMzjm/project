@@ -27,6 +27,18 @@ public class ValueOrRefTransferTest {
         }
     }
 
+    static class Test1_2{
+        public static void main(String[] args) {
+            Integer i = 128;
+            mymethod(i);
+            // 输出1
+            System.out.println(i);
+        }
+        private static void mymethod(Integer i){
+            i++;
+        }
+    }
+
     static class Test2{
         public static void main(String[] args) {
             Integer i = new Integer(1);

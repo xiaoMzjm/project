@@ -6,6 +6,12 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+/**
+ * Filter机制是在DispactherServlet之前
+ *
+ * 主要用于登录的拦截
+ *
+ */
 @Component
 @WebFilter(urlPatterns = "/*",filterName = "loginFilter")
 public class LoginFilter implements Filter {

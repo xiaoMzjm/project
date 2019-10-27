@@ -48,30 +48,15 @@ public class CreateThreadType {
         public static void main(String[] args) throws Exception{
 
             // 1. 使用Thread#start执行任务
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println("Thread#start");
-                }
-            }).start();
+            new Thread(()->System.out.println("Thread#start")).start();
 
 
             // 2. 使用Executor框架执行任务，不接收返回值
             ExecutorService es = Executors.newFixedThreadPool(4);
-            es.execute(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println("es.execute");
-                }
-            });
+            es.execute(()->System.out.println("es.execute"));
 
             // 2. 使用Executor框架执行任务，接收返回值
-            Future future = es.submit(new Callable<String>() {
-                @Override
-                public String call() {
-                    return "es.submit";
-                }
-            });
+            Future future = es.submit(()->"es.submit");
             System.out.println(future.get());
 
 

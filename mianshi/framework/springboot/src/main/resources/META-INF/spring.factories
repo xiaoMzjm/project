@@ -1,0 +1,15 @@
+# Initializers
+org.springframework.context.ApplicationContextInitializer=\
+com.zjm.framework.springboot.third.application.contextInitialinzer.MyContextInitializer
+
+# Application Listeners
+org.springframework.context.ApplicationListener=\
+com.zjm.framework.springboot.third.application.applicationListener.MyApplicationListener
+
+#
+org.springframework.boot.SpringApplicationRunListener=\
+com.zjm.framework.springboot.third.application.runListener.MyRunListener
+
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.zjm.framework.springboot.second.config.autocinfiguration.MyAutoConfiguration
