@@ -1,4 +1,4 @@
-package com.zjm.www.message;
+package com.zjm.www.kafka.message;
 
 public class Topic {
 

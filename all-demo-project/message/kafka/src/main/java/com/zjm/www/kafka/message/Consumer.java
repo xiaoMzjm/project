@@ -1,4 +1,4 @@
-package com.zjm.www.message;
+package com.zjm.www.kafka.message;
 
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
@@ -69,7 +69,7 @@ public class Consumer {
             OffsetAndMetadata offsetAndMetadata = consumer.committed(topicPartition);
             System.out.println("offset = " + offsetAndMetadata.offset());
             System.out.println("metadata = " + offsetAndMetadata.metadata());
-            System.out.println("leaderEpoch = " + offsetAndMetadata.leaderEpoch().get());
+//            System.out.println("leaderEpoch = " + offsetAndMetadata.leaderEpoch().get());
 
             long postion = consumer.position(topicPartition);
             System.out.println("postion = " + postion);

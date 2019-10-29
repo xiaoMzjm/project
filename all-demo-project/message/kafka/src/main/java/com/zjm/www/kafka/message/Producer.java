@@ -1,8 +1,7 @@
-package com.zjm.www.message;
+package com.zjm.www.kafka.message;
 
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.Properties;
 import java.util.concurrent.Future;
