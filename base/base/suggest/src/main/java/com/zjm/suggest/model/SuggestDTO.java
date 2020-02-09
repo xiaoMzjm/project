@@ -30,7 +30,7 @@ public class SuggestDTO extends Features{
 
     private String suggest;
 
-    private String userId;
+    private Long userId;
 
     private String reply;
 
@@ -69,11 +69,11 @@ public class SuggestDTO extends Features{
         this.suggest = suggest;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

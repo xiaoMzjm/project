@@ -10,7 +10,7 @@ import com.zjm.common.constant.Result;
 import com.zjm.user.filter.TokenAnnotation;
 import com.zjm.user.model.wx.WxUserInfoVO;
 import com.zjm.user.model.UserDTO;
-import com.zjm.user.service.WxLoginService;
+import com.zjm.user.service.wx.WxLoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

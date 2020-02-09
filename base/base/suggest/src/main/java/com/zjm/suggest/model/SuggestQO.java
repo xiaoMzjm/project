@@ -17,7 +17,7 @@ public class SuggestQO extends Page{
 
     private String type;
 
-    private String userId;
+    private Long userId;
 
     private Boolean withDetail;
 
@@ -45,11 +45,11 @@ public class SuggestQO extends Page{
         this.type = type;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

@@ -2,6 +2,7 @@ package com.zjm.user.manager.wx;
 
 import java.util.Date;
 
+import com.zjm.common.exception.BaseException;
 import com.zjm.common.util.UUIDUtil;
 import com.zjm.user.manager.UserManager;
 import com.zjm.user.model.UserDO;
@@ -51,34 +52,26 @@ public class WxLoginManager {
      * 保存到数据库
      * @param wxUserInfoDTO
      */
-    private synchronized UserDTO save2db(UserDTO wxUserInfoDTO){
+    private synchronized UserDTO save2db(UserDTO wxUserInfoDTO) throws BaseException {
 
-        UserDO userDO = userManager.findByOpenId(wxUserInfoDTO.getOpenId());
+        UserDTO userDTO = userManager.findByOpenId(wxUserInfoDTO.getOpenId());
 
         // 无则新增
-        if(userDO == null) {
-            userDO = new UserDO();
-            BeanUtils.copyProperties(wxUserInfoDTO , userDO);
-            String id = UUIDUtil.get();
-            userDO.setId(id);
+        if(userDTO == null) {
+            userDTO = new UserDTO();
+            BeanUtils.copyProperties(wxUserInfoDTO , userDTO);
             String token = UUIDUtil.get();
-            userDO.setToken(token);
-            String code = UUIDUtil.get();
-            userDO.setCode(code);
-            Date now = new Date();
-            userDO.setGmtCreate(now);
-            userDO.setGmtModified(now);
-            userManager.save(userDO);
+            userDTO.setToken(token);
+            userManager.save(userDTO);
             wxUserInfoDTO.setToken(token);
         }
         // 有则更新token
         else {
             String token = UUIDUtil.get();
-            userDO.setToken(token);
-            userDO.setGmtModified(new Date());
-            userManager.save(userDO);
-            userDO = userManager.findByOpenId(userDO.getOpenId());
-            BeanUtils.copyProperties(userDO , wxUserInfoDTO);
+            userDTO.setToken(token);
+            userManager.update(userDTO.getId() , new Date());
+            userDTO = userManager.findByOpenId(userDTO.getOpenId());
+            BeanUtils.copyProperties(userDTO , wxUserInfoDTO);
         }
         return wxUserInfoDTO;
     }

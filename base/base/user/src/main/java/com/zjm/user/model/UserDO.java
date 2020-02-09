@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,7 +25,8 @@ public class UserDO {
      * 通用字段
      */
     @Id
-    private String id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private Date gmtCreate;
@@ -57,6 +60,12 @@ public class UserDO {
 
     @Column
     private String avatarUrl;
+
+    @Column
+    private String account;
+
+    @Column
+    private String password;
 
     /**
      * 微信字段
@@ -134,11 +143,11 @@ public class UserDO {
         this.nickName = nickName;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -172,5 +181,21 @@ public class UserDO {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

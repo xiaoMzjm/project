@@ -26,10 +26,10 @@ public class AdvertisementService {
 
     public Result save(AdvertisementDO advertisementDO){
         try {
-            VerifyUtil.isNotNull(advertisementDO,ExceptionEnums.SAVE_AD_DO_IS_NULL);
-            VerifyUtil.isNotNull(StringUtils.isNotEmpty(advertisementDO.getBizKey()),ExceptionEnums.SAVE_AD_BIZ_KEY_IS_NULL);
-            VerifyUtil.isNotNull(StringUtils.isNotEmpty(advertisementDO.getType()),ExceptionEnums.SAVE_AD_TYPE_IS_NULL);
-            VerifyUtil.isNotNull(StringUtils.isNotEmpty(advertisementDO.getPicUrl()) || StringUtils.isNotEmpty(advertisementDO.getVideoUrl()) ,ExceptionEnums.SAVE_AD_PIC_OR_VIDEO_IS_NULL);
+            VerifyUtil.isNotNull(advertisementDO,ExceptionEnums.SAVE_AD_DO_IS_NULL.getCode(), ExceptionEnums.SAVE_AD_DO_IS_NULL.getMsg());
+            VerifyUtil.isNotNull(StringUtils.isNotEmpty(advertisementDO.getBizKey()),ExceptionEnums.SAVE_AD_BIZ_KEY_IS_NULL.getCode(), ExceptionEnums.SAVE_AD_BIZ_KEY_IS_NULL.getMsg());
+            VerifyUtil.isNotNull(StringUtils.isNotEmpty(advertisementDO.getType()),ExceptionEnums.SAVE_AD_TYPE_IS_NULL.getCode(), ExceptionEnums.SAVE_AD_TYPE_IS_NULL.getMsg());
+            VerifyUtil.isNotNull(StringUtils.isNotEmpty(advertisementDO.getPicUrl()) || StringUtils.isNotEmpty(advertisementDO.getVideoUrl()) ,ExceptionEnums.SAVE_AD_PIC_OR_VIDEO_IS_NULL.getCode(), ExceptionEnums.SAVE_AD_PIC_OR_VIDEO_IS_NULL.getMsg());
 
             advertisementManager.save(advertisementDO);
             return Result.success(null);
@@ -42,8 +42,8 @@ public class AdvertisementService {
     public Result<List<AdvertisementDO>> findByBizKeyAndType(String bizType , String type){
 
         try {
-            VerifyUtil.isNotNull(StringUtils.isNotEmpty(bizType),ExceptionEnums.FIND_BIZ_KEY_IS_NULL);
-            VerifyUtil.isNotNull(StringUtils.isNotEmpty(type),ExceptionEnums.FIND_TYPE_IS_NULL);
+            VerifyUtil.isNotNull(StringUtils.isNotEmpty(bizType),ExceptionEnums.FIND_BIZ_KEY_IS_NULL.getCode(),ExceptionEnums.FIND_BIZ_KEY_IS_NULL.getMsg() );
+            VerifyUtil.isNotNull(StringUtils.isNotEmpty(type),ExceptionEnums.FIND_TYPE_IS_NULL.getCode(), ExceptionEnums.FIND_TYPE_IS_NULL.getMsg());
 
             List<AdvertisementDO> result = advertisementManager.findByBizKeyAndType(bizType , type);
 

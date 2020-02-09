@@ -1,5 +1,7 @@
 package com.zjm.user.model;
 
+import javax.persistence.Column;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -36,7 +38,7 @@ public class UserDTO {
     /**
      * 数据库字段
      */
-    private String id;
+    private Long id;
 
     private String token;
 
@@ -53,6 +55,12 @@ public class UserDTO {
     private String country;
 
     private String avatarUrl;
+
+    @Column
+    private String account;
+
+    @Column
+    private String password;
 
 
     @Override
@@ -125,11 +133,11 @@ public class UserDTO {
         this.nickName = nickName;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -139,5 +147,21 @@ public class UserDTO {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

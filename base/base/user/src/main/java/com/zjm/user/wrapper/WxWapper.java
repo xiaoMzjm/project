@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSON;
 
 import com.zjm.common.exception.ExceptionEnums;
 import com.zjm.common.util.VerifyUtil;
+import com.zjm.user.common.Constant.ErrorCode;
 import com.zjm.user.model.wx.WxRequireLoginResultDTO;
 import com.zjm.user.model.UserDTO;
 import net.iharder.Base64;
@@ -83,14 +84,14 @@ public class WxWapper {
                 break;
             }catch (Exception e) {
                 if(i == 1) {
-                    VerifyUtil.isTrue(false , ExceptionEnums.LOGIN_REQUIRED_LOGIN_ERROR , code);
+                    VerifyUtil.isTrue(false , ErrorCode.LOGIN_REQUIRED_LOGIN_ERROR.getCode() , code);
                 }
             }
         }
 
         String strResult = new String(postResult);
         WxRequireLoginResultDTO wxLoginResultDTO = JSON.parseObject(strResult , WxRequireLoginResultDTO.class);
-        VerifyUtil.isNotEmpty(wxLoginResultDTO.getSession_key() , ExceptionEnums.LOGIN_REQUIRED_LOGIN_SESSION_NULL , code);
+        VerifyUtil.isNotEmpty(wxLoginResultDTO.getSession_key() , ErrorCode.LOGIN_REQUIRED_LOGIN_SESSION_NULL.getCode() , code);
         return wxLoginResultDTO;
     }
 

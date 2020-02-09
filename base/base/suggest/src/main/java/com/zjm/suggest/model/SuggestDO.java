@@ -43,7 +43,7 @@ public class SuggestDO {
     private String suggest;
 
     @Column
-    private String userId;
+    private Long userId;
 
     @Column
     private String reply;
@@ -80,11 +80,11 @@ public class SuggestDO {
         this.suggest = suggest;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

@@ -22,10 +22,10 @@ public class SuggestService {
 
     public SuggestResult save(SuggestSaveDTO suggestSaveDTO){
         try {
-            VerifyUtil.isNotEmpty(suggestSaveDTO.getBizKey() , ExceptionEnums.SAVE_BIZ_KEY_IS_NULL);
-            VerifyUtil.isNotEmpty(suggestSaveDTO.getType() , ExceptionEnums.SAVE_TYPE_IS_NULL);
-            VerifyUtil.isNotEmpty(suggestSaveDTO.getSuggest() , ExceptionEnums.SAVE_SUGGEST_IS_NULL);
-            VerifyUtil.isNotEmpty(suggestSaveDTO.getUserId() , ExceptionEnums.SAVE_USER_ID_IS_NULL);
+            VerifyUtil.isNotEmpty(suggestSaveDTO.getBizKey() , ExceptionEnums.SAVE_BIZ_KEY_IS_NULL.getCode(),ExceptionEnums.SAVE_BIZ_KEY_IS_NULL.getMsg());
+            VerifyUtil.isNotEmpty(suggestSaveDTO.getType() , ExceptionEnums.SAVE_TYPE_IS_NULL.getCode(), ExceptionEnums.SAVE_TYPE_IS_NULL.getMsg());
+            VerifyUtil.isNotEmpty(suggestSaveDTO.getSuggest() , ExceptionEnums.SAVE_SUGGEST_IS_NULL.getCode(), ExceptionEnums.SAVE_TYPE_IS_NULL.getMsg());
+            VerifyUtil.isNotEmpty(suggestSaveDTO.getUserId() , ExceptionEnums.SAVE_USER_ID_IS_NULL.getCode(), ExceptionEnums.SAVE_TYPE_IS_NULL.getMsg());
             SuggestDTO suggestDTO = suggestManager.save(suggestSaveDTO);
             return SuggestResult.success(suggestDTO);
         }

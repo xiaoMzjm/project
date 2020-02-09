@@ -1,8 +1,9 @@
-package com.zjm.user.service;
+package com.zjm.user.service.wx;
 
 import com.zjm.common.constant.Result;
 import com.zjm.common.exception.ExceptionEnums;
 import com.zjm.common.util.VerifyUtil;
+import com.zjm.user.common.Constant.ErrorCode;
 import com.zjm.user.manager.wx.WxLoginManager;
 import com.zjm.user.model.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,9 @@ public class WxLoginService {
     public Result<UserDTO> login(String code , String encryptedData , String iv){
 
         try {
-            VerifyUtil.isNotEmpty(code , ExceptionEnums.LOGIN_USER_CODE_EMPTY);
-            VerifyUtil.isNotEmpty(encryptedData , ExceptionEnums.LOGIN_ENCRYPTED_DATA_EMPTY);
-            VerifyUtil.isNotEmpty(iv , ExceptionEnums.LOGIN_IV_EMPTY);
-
+            VerifyUtil.isNotEmpty(code , ErrorCode.LOGIN_USER_CODE_EMPTY.getCode(), ErrorCode.LOGIN_USER_CODE_EMPTY.getDesc());
+            VerifyUtil.isNotEmpty(encryptedData , ErrorCode.LOGIN_ENCRYPTED_DATA_EMPTY.getCode(), ErrorCode.LOGIN_ENCRYPTED_DATA_EMPTY.getDesc());
+            VerifyUtil.isNotEmpty(iv , ErrorCode.LOGIN_IV_EMPTY.getCode(), ErrorCode.LOGIN_IV_EMPTY.getDesc());
 
             UserDTO userDTO = wxLoginManager.login(code , encryptedData ,iv);
 

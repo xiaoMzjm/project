@@ -57,8 +57,8 @@ public class SuggestController {
         suggestSaveDTO.setBizKey(SuggestBizKeyEnum.FIT.getCode());
         suggestSaveDTO.setType(type);
         suggestSaveDTO.setSuggest(suggest);
-        UserDTO wxUserInfoDTO = (UserDTO)request.getAttribute("user");
-        suggestSaveDTO.setUserId(wxUserInfoDTO.getId());
+        UserDTO userDTO = (UserDTO)request.getAttribute("user");
+        suggestSaveDTO.setUserId(userDTO.getId());
         SuggestResult<SuggestDTO> suggestResult = suggestService.save(suggestSaveDTO);
         if(!suggestResult.getSuccess()) {
             return JSON.toJSONString(suggestResult);
