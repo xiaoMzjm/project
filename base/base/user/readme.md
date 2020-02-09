@@ -5,17 +5,18 @@
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` varchar(64) NOT NULL COMMENT 'id',
-  `open_id` varchar(64) DEFAULT NULL COMMENT 'openId',
-  `nick_name` varchar(64) DEFAULT NULL COMMENT 'nickName',
-  `gender` varchar(64) DEFAULT NULL COMMENT 'gender',
-  `language` varchar(64) DEFAULT NULL COMMENT 'language',
-  `city` varchar(64) DEFAULT NULL COMMENT 'city',
-  `province` varchar(64) DEFAULT NULL COMMENT 'province',
-  `country` varchar(64) DEFAULT NULL COMMENT 'country',
-  `avatar_url` varchar(256) DEFAULT NULL COMMENT 'avatarUrl',
+  `nick_name` varchar(64) DEFAULT NULL COMMENT '昵称',
+  `gender` varchar(64) DEFAULT NULL COMMENT '性别',
+  `language` varchar(64) DEFAULT NULL COMMENT '语言',
+  `city` varchar(64) DEFAULT NULL COMMENT '城市',
+  `province` varchar(64) DEFAULT NULL COMMENT '省份',
+  `country` varchar(64) DEFAULT NULL COMMENT '国家',
+  `avatar_url` varchar(256) DEFAULT NULL COMMENT '头像地址',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
   `token` varchar(64) DEFAULT NULL COMMENT 'token',
   `code` varchar(64) DEFAULT NULL COMMENT '唯一标识',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `open_id` varchar(64) DEFAULT NULL COMMENT '微信openId',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_token_code` (`token`,`code`)
+) ENGINE=InnoDB DEFAULT CHARxSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

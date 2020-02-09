@@ -18,7 +18,7 @@ import com.zjm.suggest.model.SuggestDTO;
 import com.zjm.suggest.model.SuggestSaveDTO;
 import com.zjm.suggest.model.SuggestVO;
 import com.zjm.suggest.service.SuggestService;
-import com.zjm.user.model.WxUserInfoDTO;
+import com.zjm.user.model.UserDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -57,7 +57,7 @@ public class SuggestController {
         suggestSaveDTO.setBizKey(SuggestBizKeyEnum.FIT.getCode());
         suggestSaveDTO.setType(type);
         suggestSaveDTO.setSuggest(suggest);
-        WxUserInfoDTO wxUserInfoDTO = (WxUserInfoDTO)request.getAttribute("user");
+        UserDTO wxUserInfoDTO = (UserDTO)request.getAttribute("user");
         suggestSaveDTO.setUserId(wxUserInfoDTO.getId());
         SuggestResult<SuggestDTO> suggestResult = suggestService.save(suggestSaveDTO);
         if(!suggestResult.getSuccess()) {

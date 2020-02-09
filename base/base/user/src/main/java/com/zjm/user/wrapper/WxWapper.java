@@ -13,8 +13,8 @@ import com.alibaba.fastjson.JSON;
 
 import com.zjm.common.exception.ExceptionEnums;
 import com.zjm.common.util.VerifyUtil;
-import com.zjm.user.model.WxRequireLoginResultDTO;
-import com.zjm.user.model.WxUserInfoDTO;
+import com.zjm.user.model.wx.WxRequireLoginResultDTO;
+import com.zjm.user.model.UserDTO;
 import net.iharder.Base64;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
@@ -102,7 +102,7 @@ public class WxWapper {
      * @return
      * @throws Exception
      */
-    public WxUserInfoDTO decodeUserInfo(String encryptedData, String sessionKey, String iv) throws Exception{
+    public UserDTO decodeUserInfo(String encryptedData, String sessionKey, String iv) throws Exception{
         // 被加密的数据
         byte[] dataByte = Base64.decode(encryptedData);
         // 加密秘钥
@@ -129,7 +129,7 @@ public class WxWapper {
         byte[] resultByte = cipher.doFinal(dataByte);
         if (null != resultByte && resultByte.length > 0) {
             String result = new String(resultByte, "UTF-8");
-            return JSON.parseObject(result , WxUserInfoDTO.class);
+            return JSON.parseObject(result , UserDTO.class);
         }
         return null;
     }

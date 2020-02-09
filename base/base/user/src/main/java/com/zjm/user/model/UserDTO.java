@@ -1,12 +1,5 @@
 package com.zjm.user.model;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -15,53 +8,50 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author:小M
  * @date:2018/4/30 0:39
  */
-@Entity
-@Table(name = "user")
-public class WxUserInfoDO {
+public class UserDTO {
 
     /**
-     * 数据库字段
+     * 微信返回的json例子：
+     {
+         "openId":"ojbj60MA2r6vkD0Wld-tqsjForvA",
+         "nickName":"小M张佳铭",
+         "gender":1,
+         "language":"zh_CN",
+         "city":"",
+         "province":"广东",
+         "country":"中国",
+         "avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/Q02yeejica3KekPsmOLMxKtUyAibC17fribEIhOynXhWLVujiceO3ic0p9tu1Y1reLO7tv0X7EzUw4ib8ddHSmNTaffw/132",
+         "watermark":{
+            "timestamp":1547392395,
+            "appid":"wx37ebc9339ff09baa"
+         }
+     }
      */
-    @Id
-    private String id;
-
-    @Column
-    private Date gmtCreate;
-
-    @Column
-    private Date gmtModified;
-
-    @Column
-    private String token;
-
-    @Column
-    private String code;
 
     /**
      * 微信字段
      */
-    @Column
     private String openId;
 
-    @Column
+    /**
+     * 数据库字段
+     */
+    private String id;
+
+    private String token;
+
     private String nickName;
 
-    @Column
     private String gender;
 
-    @Column
     private String language;
 
-    @Column
     private String city;
 
-    @Column
     private String province;
 
-    @Column
     private String country;
 
-    @Column
     private String avatarUrl;
 
 
@@ -143,35 +133,11 @@ public class WxUserInfoDO {
         this.id = id;
     }
 
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 }

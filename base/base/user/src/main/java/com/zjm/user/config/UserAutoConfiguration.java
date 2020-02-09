@@ -15,6 +15,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories("com.zjm.user")
 @EntityScan("com.zjm.user")
 @EnableTransactionManagement
-public class WxLoginAutoConfiguration{
+public class UserAutoConfiguration {
 
 }

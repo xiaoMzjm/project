@@ -1,4 +1,4 @@
-package com.zjm.user.api;
+package com.zjm.user.api.wx;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSON;
 
 import com.zjm.common.constant.Result;
-import com.zjm.user.filter.WeiXinLoginFilter;
-import com.zjm.user.model.WxUserInfoVO;
-import com.zjm.user.model.WxUserInfoDTO;
+import com.zjm.user.filter.TokenAnnotation;
+import com.zjm.user.model.wx.WxUserInfoVO;
+import com.zjm.user.model.UserDTO;
 import com.zjm.user.service.WxLoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,14 +47,14 @@ public class WxLoginController {
      */
     @ApiOperation(value = "微信登陆" ,  notes="微信登陆")
     @RequestMapping(value = "/login" , method = RequestMethod.POST , produces = {"application/json;charset=UTF-8"})
-    @WeiXinLoginFilter
+    @TokenAnnotation
     public String login(@ApiParam(name="用户code",value="code",required=true)String code ,
                         @ApiParam(name="密文",value="encryptedData",required=true)String encryptedData ,
                         @ApiParam(name="解密向量",value="iv",required=true)String iv,
                         HttpServletRequest request,
                         HttpServletResponse response) {
         System.out.println("code="+code + ",encryptedData="+encryptedData+",iv="+iv);
-        Result<WxUserInfoDTO> wxLoginResult = wxLoginService.login(code, encryptedData ,iv);
+        Result<UserDTO> wxLoginResult = wxLoginService.login(code, encryptedData ,iv);
         if(!wxLoginResult.getSuccess()) {
             return JSON.toJSONString(Result.error(wxLoginResult.getErrorCode() , wxLoginResult.getErrorMsg()));
         }
@@ -67,5 +67,9 @@ public class WxLoginController {
         Cookie cookie = new Cookie("token" , result.getData().getToken());
         response.addCookie(cookie);
         return JSON.toJSONString(result);
+    }
+
+    public void setWxLoginService(WxLoginService wxLoginService) {
+        this.wxLoginService = wxLoginService;
     }
 }

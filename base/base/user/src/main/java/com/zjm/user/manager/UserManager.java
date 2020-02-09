@@ -2,8 +2,8 @@ package com.zjm.user.manager;
 
 import java.util.Optional;
 
-import com.zjm.user.model.WxUserInfoDO;
-import com.zjm.user.repository.WxLoginUserRepository;
+import com.zjm.user.model.UserDO;
+import com.zjm.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
@@ -13,21 +13,21 @@ import org.springframework.stereotype.Component;
  * @date:2019/2/17 6:50 PM
  */
 @Component
-public class WxUserInfoManager {
+public class UserManager {
 
     @Autowired
-    private WxLoginUserRepository wxLoginUserRepository;
+    public UserRepository wxLoginUserRepository;
 
     /**
      * 根据openId查询
      * @param openId
      * @return
      */
-    public WxUserInfoDO findByOpenId(String openId) {
-        WxUserInfoDO wxUserInfoDO = new WxUserInfoDO();
+    public UserDO findByOpenId(String openId) {
+        UserDO wxUserInfoDO = new UserDO();
         wxUserInfoDO.setOpenId(openId);
-        Example<WxUserInfoDO> example = Example.of(wxUserInfoDO);
-        Optional<WxUserInfoDO> findResult = wxLoginUserRepository.findOne(example);
+        Example<UserDO> example = Example.of(wxUserInfoDO);
+        Optional<UserDO> findResult = wxLoginUserRepository.findOne(example);
         if(findResult.isPresent()) {
             return findResult.get();
         }
@@ -39,11 +39,11 @@ public class WxUserInfoManager {
      * @param token
      * @return
      */
-    public WxUserInfoDO findByToken(String token) {
-        WxUserInfoDO wxUserInfoDO = new WxUserInfoDO();
+    public UserDO findByToken(String token) {
+        UserDO wxUserInfoDO = new UserDO();
         wxUserInfoDO.setToken(token);
-        Example<WxUserInfoDO> example = Example.of(wxUserInfoDO);
-        Optional<WxUserInfoDO> findResult = wxLoginUserRepository.findOne(example);
+        Example<UserDO> example = Example.of(wxUserInfoDO);
+        Optional<UserDO> findResult = wxLoginUserRepository.findOne(example);
         if(findResult.isPresent()) {
             return findResult.get();
         }
@@ -54,7 +54,7 @@ public class WxUserInfoManager {
      * 保存 或 修改
      * @param wxUserInfoDO
      */
-    public void save(WxUserInfoDO wxUserInfoDO){
+    public void save(UserDO wxUserInfoDO){
         wxLoginUserRepository.save(wxUserInfoDO);
     }
 

@@ -1,4 +1,4 @@
-package com.zjm.user.model;
+package com.zjm.user.model.wx;
 
 /**
  * @author:小M

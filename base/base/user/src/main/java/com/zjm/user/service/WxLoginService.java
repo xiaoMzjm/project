@@ -3,8 +3,8 @@ package com.zjm.user.service;
 import com.zjm.common.constant.Result;
 import com.zjm.common.exception.ExceptionEnums;
 import com.zjm.common.util.VerifyUtil;
-import com.zjm.user.manager.WxLoginManager;
-import com.zjm.user.model.WxUserInfoDTO;
+import com.zjm.user.manager.wx.WxLoginManager;
+import com.zjm.user.model.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +26,7 @@ public class WxLoginService {
      * @return
      * @throws Exception
      */
-    public Result<WxUserInfoDTO> login(String code , String encryptedData , String iv){
+    public Result<UserDTO> login(String code , String encryptedData , String iv){
 
         try {
             VerifyUtil.isNotEmpty(code , ExceptionEnums.LOGIN_USER_CODE_EMPTY);
@@ -34,11 +34,15 @@ public class WxLoginService {
             VerifyUtil.isNotEmpty(iv , ExceptionEnums.LOGIN_IV_EMPTY);
 
 
-            WxUserInfoDTO wxUserInfoDTO = wxLoginManager.login(code , encryptedData ,iv);
+            UserDTO userDTO = wxLoginManager.login(code , encryptedData ,iv);
 
-            return Result.success(wxUserInfoDTO);
+            return Result.success(userDTO);
         }catch (Exception e) {
             return Result.error(e.getMessage());
         }
+    }
+
+    public void setWxLoginManager(WxLoginManager wxLoginManager) {
+        this.wxLoginManager = wxLoginManager;
     }
 }

@@ -1,6 +1,6 @@
 package com.zjm.user.repository;
 
-import com.zjm.user.model.WxUserInfoDO;
+import com.zjm.user.model.UserDO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @date:2019/1/13 10:58 PM
  */
 @Repository
-public interface WxLoginUserRepository extends JpaRepository<WxUserInfoDO,String> {
+public interface UserRepository extends JpaRepository<UserDO,String> {
 }

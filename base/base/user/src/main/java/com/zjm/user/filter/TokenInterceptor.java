@@ -11,9 +11,9 @@ import com.alibaba.fastjson.JSON;
 
 import com.zjm.common.constant.Result;
 import com.zjm.common.util.DateUtil;
-import com.zjm.user.manager.WxUserInfoManager;
-import com.zjm.user.model.WxUserInfoConvertor;
-import com.zjm.user.model.WxUserInfoDO;
+import com.zjm.user.manager.UserManager;
+import com.zjm.user.model.UserConvertor;
+import com.zjm.user.model.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
@@ -35,7 +35,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     private Boolean enableWeiXinLoginFilter;
 
     @Autowired
-    private WxUserInfoManager wxUserInfoManager;
+    private UserManager wxUserInfoManager;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -67,8 +67,8 @@ public class TokenInterceptor implements HandlerInterceptor {
         /**
          * 打了注解的才需要拦截
          */
-        WeiXinLoginFilter weiXinLoginFilter = method.getAnnotation(WeiXinLoginFilter.class);
-        if(weiXinLoginFilter == null) {
+        TokenAnnotation tokenFilter = method.getAnnotation(TokenAnnotation.class);
+        if(tokenFilter == null) {
             return true;
         }
 
@@ -91,7 +91,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             response.getWriter().write(JSON.toJSONString(wxLoginResult));
             return false;
         }
-        WxUserInfoDO wxUserInfoDO = wxUserInfoManager.findByToken(token);
+        UserDO wxUserInfoDO = wxUserInfoManager.findByToken(token);
         if(wxUserInfoDO == null) {
             Result wxLoginResult = Result.error("TOKEN_ERROR","TOKEN_NULL");
             response.getWriter().write(JSON.toJSONString(wxLoginResult));
@@ -103,7 +103,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             response.getWriter().write(JSON.toJSONString(wxLoginResult));
             return false;
         }
-        request.setAttribute("user" , WxUserInfoConvertor.do2DTO(wxUserInfoDO));
+        request.setAttribute("user" , UserConvertor.do2DTO(wxUserInfoDO));
 
         return true;
     }
@@ -121,5 +121,17 @@ public class TokenInterceptor implements HandlerInterceptor {
         response.setContentType("text/html;charset=utf-8");
         response.setContentType("application/json;charset=utf-8");
         response.setCharacterEncoding("utf-8");
+    }
+
+    public void setLocal(Boolean local) {
+        this.local = local;
+    }
+
+    public void setEnableWeiXinLoginFilter(Boolean enableWeiXinLoginFilter) {
+        this.enableWeiXinLoginFilter = enableWeiXinLoginFilter;
+    }
+
+    public void setWxUserInfoManager(UserManager wxUserInfoManager) {
+        this.wxUserInfoManager = wxUserInfoManager;
     }
 }
