@@ -5,6 +5,8 @@
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` varchar(64) NOT NULL COMMENT 'id',
+  `account` varchar(64) NOT NULL COMMENT '账户',
+  `password` varchar(128) NOT NULL COMMENT '密码',
   `nick_name` varchar(64) DEFAULT NULL COMMENT '昵称',
   `gender` varchar(64) DEFAULT NULL COMMENT '性别',
   `language` varchar(64) DEFAULT NULL COMMENT '语言',
@@ -16,7 +18,7 @@ CREATE TABLE `user` (
   `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
   `token` varchar(64) DEFAULT NULL COMMENT 'token',
   `code` varchar(64) DEFAULT NULL COMMENT '唯一标识',
-  `open_id` varchar(64) DEFAULT NULL COMMENT '微信openId',
+  `open_id` varchar(64) DEFAULT NULL COMMENT '微信:openId',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_token_code` (`token`,`code`)
-) ENGINE=InnoDB DEFAULT CHARxSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

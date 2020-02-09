@@ -97,7 +97,7 @@
                     <!-- jar部署 -->
                     <!-- 1. mvn clean package -Dmaven.test.skip=true -->
                     <!-- 2. java -jar web-0.0.1-SNAPSHOT.jar -两个-spring.profiles.active=online -->
-                    <mainClass>com.zjm.com.zjm.biz.web.Application</mainClass>
+                    <mainClass>com.zjm.biz.web.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>

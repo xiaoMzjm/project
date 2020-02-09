@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 
 import com.zjm.common.constant.Result;
 import com.zjm.common.util.DateUtil;
+import com.zjm.user.common.Constant.ErrorCode;
 import com.zjm.user.manager.UserManager;
 import com.zjm.user.model.UserConvertor;
 import com.zjm.user.model.UserDO;
@@ -28,14 +29,14 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class TokenInterceptor implements HandlerInterceptor {
 
-    @Value("${local:false}")
-    private Boolean local;
-
     @Value("${local:true}")
-    private Boolean enableWeiXinLoginFilter;
+    private Boolean enableTokenFilter;
+
+    @Value("${local:7}")
+    private Integer tokenExpireDay;
 
     @Autowired
-    private UserManager wxUserInfoManager;
+    private UserManager userManager;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -44,7 +45,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         /**
          * 不开启拦截的，直接返回
          */
-        if(!enableWeiXinLoginFilter) {
+        if(!enableTokenFilter) {
             return true;
         }
 
@@ -55,9 +56,6 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         // 如果不是映射到方法里，直接通过
         if(!(handler instanceof HandlerMethod)) {
-            return true;
-        }
-        if(local) {
             return true;
         }
 
@@ -86,23 +84,27 @@ public class TokenInterceptor implements HandlerInterceptor {
                 }
             }
         }
+        // header 中不存在 token
         if(StringUtils.isEmpty(token)) {
-            Result wxLoginResult = Result.error("TOKEN_NULL","TOKEN_NULL");
+            Result wxLoginResult = Result.error(ErrorCode.TOKEN_NULL.getCode(),ErrorCode.TOKEN_NULL.getCode());
             response.getWriter().write(JSON.toJSONString(wxLoginResult));
             return false;
         }
-        UserDO wxUserInfoDO = wxUserInfoManager.findByToken(token);
+        // 根据 token 查询不到用户
+        UserDO wxUserInfoDO = userManager.findByToken(token);
         if(wxUserInfoDO == null) {
-            Result wxLoginResult = Result.error("TOKEN_ERROR","TOKEN_NULL");
+            Result wxLoginResult = Result.error(ErrorCode.TOKEN_ERROR.getCode(),ErrorCode.TOKEN_ERROR.getCode());
+            response.getWriter().write(JSON.toJSONString(wxLoginResult));
+            return false;
+        }
+        // 根据token查询得到用户，但是 token 过期
+        if(DateUtil.addDays(new Date(), -tokenExpireDay).getTime() > wxUserInfoDO.getGmtModified().getTime()) {
+            Result wxLoginResult = Result.error(ErrorCode.TOKEN_EXPIRE.getCode(),ErrorCode.TOKEN_EXPIRE.getCode());
             response.getWriter().write(JSON.toJSONString(wxLoginResult));
             return false;
         }
 
-        if(DateUtil.addDays(new Date(), -1).getTime() > wxUserInfoDO.getGmtModified().getTime()) {
-            Result wxLoginResult = Result.error("TOKEN_EXPIRE","TOKEN_NULL");
-            response.getWriter().write(JSON.toJSONString(wxLoginResult));
-            return false;
-        }
+        // 把用户放在attribute中
         request.setAttribute("user" , UserConvertor.do2DTO(wxUserInfoDO));
 
         return true;
@@ -123,15 +125,16 @@ public class TokenInterceptor implements HandlerInterceptor {
         response.setCharacterEncoding("utf-8");
     }
 
-    public void setLocal(Boolean local) {
-        this.local = local;
+
+    public void setEnableTokenFilter(Boolean enableTokenFilter) {
+        this.enableTokenFilter = enableTokenFilter;
     }
 
-    public void setEnableWeiXinLoginFilter(Boolean enableWeiXinLoginFilter) {
-        this.enableWeiXinLoginFilter = enableWeiXinLoginFilter;
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
     }
 
-    public void setWxUserInfoManager(UserManager wxUserInfoManager) {
-        this.wxUserInfoManager = wxUserInfoManager;
+    public void setTokenExpireDay(Integer tokenExpireDay) {
+        this.tokenExpireDay = tokenExpireDay;
     }
 }

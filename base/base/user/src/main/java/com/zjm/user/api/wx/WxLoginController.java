@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(description = "微信登陆接口")
 @Controller
 @ResponseBody
-@RequestMapping("/wx")
+@RequestMapping("user/wx")
 @RestController
 public class WxLoginController {
 

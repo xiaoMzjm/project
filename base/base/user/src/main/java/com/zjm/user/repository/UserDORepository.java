@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @date:2019/1/13 10:58 PM
  */
 @Repository
-public interface UserRepository extends JpaRepository<UserDO,String> {
+public interface UserDORepository extends JpaRepository<UserDO,String> {
 }

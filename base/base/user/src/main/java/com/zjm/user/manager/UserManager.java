@@ -3,7 +3,7 @@ package com.zjm.user.manager;
 import java.util.Optional;
 
 import com.zjm.user.model.UserDO;
-import com.zjm.user.repository.UserRepository;
+import com.zjm.user.repository.UserDORepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class UserManager {
 
     @Autowired
-    public UserRepository wxLoginUserRepository;
+    public UserDORepository userDORepository;
 
     /**
      * 根据openId查询
@@ -27,7 +27,7 @@ public class UserManager {
         UserDO wxUserInfoDO = new UserDO();
         wxUserInfoDO.setOpenId(openId);
         Example<UserDO> example = Example.of(wxUserInfoDO);
-        Optional<UserDO> findResult = wxLoginUserRepository.findOne(example);
+        Optional<UserDO> findResult = userDORepository.findOne(example);
         if(findResult.isPresent()) {
             return findResult.get();
         }
@@ -43,7 +43,7 @@ public class UserManager {
         UserDO wxUserInfoDO = new UserDO();
         wxUserInfoDO.setToken(token);
         Example<UserDO> example = Example.of(wxUserInfoDO);
-        Optional<UserDO> findResult = wxLoginUserRepository.findOne(example);
+        Optional<UserDO> findResult = userDORepository.findOne(example);
         if(findResult.isPresent()) {
             return findResult.get();
         }
@@ -55,7 +55,7 @@ public class UserManager {
      * @param wxUserInfoDO
      */
     public void save(UserDO wxUserInfoDO){
-        wxLoginUserRepository.save(wxUserInfoDO);
+        userDORepository.save(wxUserInfoDO);
     }
 
 
