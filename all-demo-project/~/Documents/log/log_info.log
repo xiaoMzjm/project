@@ -1,0 +1,24 @@
+2019-10-31 20:54:32.153 [main] INFO  cpm.zjm.www.springboot.log.MainApplication - Starting MainApplication on IT-C02Z1908LVCF.local with PID 61187 (/Users/heijue/Documents/workspace/all-demo-project/spring/springboot-log/target/classes started by heijue in /Users/heijue/Documents/workspace/all-demo-project)
+2019-10-31 20:54:32.155 [main] INFO  cpm.zjm.www.springboot.log.MainApplication - No active profile set, falling back to default profiles: default
+2019-10-31 20:54:32.803 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 80 (http)
+2019-10-31 20:54:32.811 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-80"]
+2019-10-31 20:54:32.814 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-10-31 20:54:32.814 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-10-31 20:54:32.819 [main] INFO  org.apache.catalina.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/heijue/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+2019-10-31 20:54:32.870 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2019-10-31 20:54:32.871 [main] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 665 ms
+2019-10-31 20:54:32.885 [main] INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+2019-10-31 20:54:32.888 [main] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-10-31 20:54:32.888 [main] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-10-31 20:54:32.888 [main] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'formContentFilter' to: [/*]
+2019-10-31 20:54:32.888 [main] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2019-10-31 20:54:33.019 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-31 20:54:33.123 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-80"]
+2019-10-31 20:54:33.145 [main] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2019-10-31 20:54:33.155 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 80 (http) with context path ''
+2019-10-31 20:54:33.158 [main] INFO  cpm.zjm.www.springboot.log.MainApplication - Started MainApplication in 21.305 seconds (JVM running for 26.7)
+2019-10-31 20:56:57.978 [http-nio-80-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-31 20:56:57.979 [http-nio-80-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2019-10-31 20:56:57.984 [http-nio-80-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2019-10-31 20:56:58.001 [http-nio-80-exec-1] INFO  cpm.zjm.www.springboot.log.MainApplication - info log test
+2019-10-31 20:57:41.058 [Thread-45] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'

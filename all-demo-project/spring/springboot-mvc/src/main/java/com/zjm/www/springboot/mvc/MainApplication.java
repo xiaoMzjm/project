@@ -1,4 +1,4 @@
-package com.zjm.www.springboot;
+package com.zjm.www.springboot.mvc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

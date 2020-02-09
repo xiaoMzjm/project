@@ -1,4 +1,4 @@
-package com.zjm.www.springboot.api;
+package com.zjm.www.springboot.mvc.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
