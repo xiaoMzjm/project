@@ -59,6 +59,7 @@ Page({
    */
   initPic:function(){
     let that = this;
+    console.info(app.catalogUrl() + "/headerPicUrl");
     wx.request({
       url: app.catalogUrl() + "/headerPicUrl",
       data: {},
@@ -84,6 +85,7 @@ Page({
 
       },
       fail: function (e) {
+        console.info(e);
         wx.showModal({
           title: "系统维护中，请稍后重试",
           content: '',
