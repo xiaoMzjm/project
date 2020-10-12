@@ -1,4 +1,4 @@
-package com.zjm.framework.springboot.mytest.aop;
+package com.zjm.framework.springboot.aop;
 
 import java.lang.annotation.*;
 

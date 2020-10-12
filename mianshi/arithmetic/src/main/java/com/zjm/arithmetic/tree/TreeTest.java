@@ -3,6 +3,8 @@ package com.zjm.arithmetic.tree;
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 /**
  * @author:小M
@@ -30,12 +32,19 @@ public class TreeTest {
         return node1;
     }
 
-    public static void main(String[] args) {
-        //TreeTest treeTest = new TreeTest();
-        //TreeNode root = treeTest.generateTree();
-        //treeTest.pre(root);
-
-        statc();
+    public static void main(String[] args) throws Exception{
+        // 3. 继承FutureTask
+        FutureTask task = new FutureTask<String>(
+            new Callable<String>() {
+                @Override
+                public String call() throws Exception {
+                    return "继承FutureTask";
+                }
+            }
+        );
+        new Thread(task).start();
+        // get方法会阻塞等待
+        System.out.println("3、" + task.get());
     }
 
     private void pre(TreeNode treeNode){

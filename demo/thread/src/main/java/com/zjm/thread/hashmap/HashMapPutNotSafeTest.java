@@ -1,4 +1,4 @@
-package com.zjm.thread;
+package com.zjm.thread.hashmap;
 
 import java.util.HashMap;
 import java.util.Map;

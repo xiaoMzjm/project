@@ -1,4 +1,4 @@
-package com.zjm.framework.springboot.mytest.aop;
+package com.zjm.framework.springboot.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DoubleTryAop {
 
-    @Pointcut("@annotation(com.zjm.framework.springboot.mytest.aop.DoubleTry)")
+    @Pointcut("@annotation(com.zjm.framework.springboot.aop.DoubleTry)")
     public void pointCut() {}
 
     @Around("pointCut()")

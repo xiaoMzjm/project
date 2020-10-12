@@ -1,4 +1,4 @@
-package com.zjm.thread;
+package com.zjm.thread.reentrantlock;
 
 import java.util.ArrayList;
 import java.util.List;
