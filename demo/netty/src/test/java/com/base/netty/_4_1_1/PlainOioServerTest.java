@@ -13,7 +13,7 @@ import org.junit.Test;
  */
 public class PlainOioServerTest {
 
-    @Test
+    //@Test
     public void testOioServer() throws Exception{
 
         // 启动服务端

@@ -8,7 +8,7 @@ import org.junit.Test;
  */
 public class NettyNioServerTest {
 
-    @Test
+    //@Test
     public void test() throws Exception{
         NettyNioServer nettyNioServer = new NettyNioServer();
         nettyNioServer.server();

@@ -9,7 +9,7 @@ import org.junit.Test;
  */
 public class PlainNioServerTest {
 
-    @Test
+    //@Test
     public void init() throws Exception{
 
         PlainNioServer plainNioServer = new PlainNioServer();

@@ -1,10 +1,10 @@
 package com.base.rpc.io.server;
 
-import com.base.rpc.invoke.Invoker;
 import com.base.rpc.invoke.ProviderInvoke;
 import com.base.rpc.protocol.RpcRequest;
 import com.base.rpc.protocol.RpcResponse;
 import com.base.rpc.provider.RpcProvider;
+import com.base.rpc.serialize.JSONSerializer;
 import com.base.rpc.serialize.MessageDecoder;
 import com.base.rpc.serialize.MessageEncoder;
 import com.base.rpc.serialize.Serializer;
@@ -25,21 +25,23 @@ import io.netty.handler.timeout.ReadTimeoutHandler;
  */
 public class RPCServer {
 
-    private String ip;
     private int port;
     private int ioThreads; // 用来处理网络流的读写线程
     private int workerThreads; // 用于业务处理的计算线程
     private Serializer serializer;
 
-    // 下面三个变量，一个是服务端socker，两个涉及到线程池，停止服务端的时候需要关闭，所以提到外面
+    // 下面三个变量，一个是服务端socket，两个涉及到线程池，停止服务端的时候需要关闭，所以提到外面
     private ServerBootstrap bootstrap;
     private EventLoopGroup baseGroup;
     private EventLoopGroup workGroup;
     private ServerChannelInboundHandler serverChannelInboundHandler;
     private Channel serverChannel;
 
-    public RPCServer(String ip, int port, int ioThreads, int workerThreads, Serializer serializer) {
-        this.ip = ip;
+    public RPCServer(int port, int ioThreads, int workerThreads) {
+        this(port, ioThreads, workerThreads, new JSONSerializer());
+    }
+
+    public RPCServer(int port, int ioThreads, int workerThreads, Serializer serializer) {
         this.port = port;
         this.ioThreads = ioThreads;
         this.workerThreads = workerThreads;
@@ -81,11 +83,11 @@ public class RPCServer {
     }
 
     private void bind(int port) {
-        serverChannel = bootstrap.bind(this.ip, this.port).addListener(future -> {
+        serverChannel = bootstrap.bind(this.port).addListener(future -> {
             if (future.isSuccess()) {
-                System.out.printf("server started @ %s:%d\n", ip, port);
+                System.out.printf("server started %d\n", port);
             } else {
-                System.out.printf("server fail @ %s:%d\n", ip, port);
+                System.out.printf("server fail %d\n", port);
                 bind(port + 1);
             }
         }).channel();
@@ -106,7 +108,7 @@ public class RPCServer {
         }
     }
 
-    public void addProbider(RpcProvider rpcProvider) {
+    public void registerProvider(RpcProvider rpcProvider) {
         ProviderInvoke.register(rpcProvider);
     }
 }

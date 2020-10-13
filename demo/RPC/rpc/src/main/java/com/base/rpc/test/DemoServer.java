@@ -1,8 +1,8 @@
 package com.base.rpc.test;
 
+import com.base.rpc.io.server.RPCServer;
 import com.base.rpc.provider.RpcProvider;
 import com.base.rpc.serialize.JSONSerializer;
-import com.base.rpc.io.server.RPCServer;
 
 /**
  * @author:СM
@@ -11,10 +11,10 @@ import com.base.rpc.io.server.RPCServer;
 public class DemoServer {
 
     public static void main(String[] args) {
-        RPCServer server = new RPCServer("localhost", 8888,
+        RPCServer server = new RPCServer( 8888,
             2, 16,
             new JSONSerializer());
-        server.addProbider(new RpcProvider(HelloService.class.getName(),new HelloServiceImpl()));
+        server.registerProvider(new RpcProvider(HelloService.class.getName(),new HelloServiceImpl()));
         server.start();
     }
 

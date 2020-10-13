@@ -10,6 +10,7 @@ import com.base.rpc.commom.Assert;
 import com.base.rpc.consumer.RpcConsumer;
 import com.base.rpc.protocol.RpcRequest;
 import com.base.rpc.protocol.RpcResponse;
+import com.base.rpc.serialize.JSONSerializer;
 import com.base.rpc.serialize.MessageDecoder;
 import com.base.rpc.serialize.MessageEncoder;
 import com.base.rpc.serialize.Serializer;
@@ -29,7 +30,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  */
 public class RPCClient {
 
-    private static final int MAX_RETRY = 5;
+    public static final int MAX_RETRY = 5;
     private String ip;
     private int port;
     private Serializer serializer;
@@ -40,6 +41,10 @@ public class RPCClient {
     private EventLoopGroup group;
     private Map<Class,Object> rpcConsumerMap = new ConcurrentHashMap<>();
 
+    public RPCClient(String ip, int port) {
+        this(ip, port, new JSONSerializer());
+    }
+
     public RPCClient(String ip, int port, Serializer serializer) {
         this.ip = ip;
         this.port = port;
@@ -48,7 +53,7 @@ public class RPCClient {
 
     public void start() throws Exception{
 
-        clientChannelHandler = new ClientChannelHandler();
+        clientChannelHandler = new ClientChannelHandler(this);
         group = new NioEventLoopGroup();
 
         bootstrap = new Bootstrap();
@@ -76,7 +81,7 @@ public class RPCClient {
     }
 
 
-    private void connect(int retry) {
+    public void connect(int retry) {
         ChannelFuture channelFuture = bootstrap.connect().addListener(future -> {
             if (future.isSuccess()) {
                 System.out.println("connect to server success");
