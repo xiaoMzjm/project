@@ -4,18 +4,21 @@
     <meta charset="utf-8">
     <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
     <!-- 使用本地的js -->
-    <script src="vue.min.js"></script>
+    <script src="../lib/vue.min.js"></script>
 </head>
 <body>
 <div id="app">
-    <p>{{ message }}</p>
+    <p v-if="ok">{{ message }}</p>
+    <p v-if="notOk">{{ message }}</p>
 </div>
 
 <script>
 new Vue({
   el: '#app',
   data: {
-    message: 'Hello Vue.js!'
+    message: 'Hello Vue.js!',
+    ok: true,
+    notOk: false
   }
 })
 </script>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <!-- 使用本地的js -->
+    <script src="../lib/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <p v-bind:class="{'class1' : use}">test</p>
+    <p :class="{'class1' : use}">test</p>
+</div>
+
+<style>
+    .class1 {
+        color: red;
+    }
+
+    .class2 {
+        color: green;
+    }
+
+</style>
+
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    use: true
+  }
+})
+</script>
+</body>
+</html>

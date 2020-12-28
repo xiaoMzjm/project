@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <!-- 使用本地的js -->
+    <script src="../lib/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <p v-bind:class="'class1'">{{message}}</p>
+    <p v-bind:class="{'class2' : isOk}">{{message}}</p>
+    <p v-bind:class="['class1','class3']">{{message}}</p>
+    <p v-bind:class="[c1,c3]">{{message}}</p>
+
+    <p v-bind:style="{color: colorParam, fontSize: fontSizeParam + 'px'}">{{message}}</p>
+</div>
+
+<style>
+    .class1 {
+        color: red;
+    }
+
+    .class2 {
+        color: green;
+    }
+
+    .class3 {
+        font-size:30px;
+    }
+
+</style>
+
+<script>
+var v = new Vue({
+  el: '#app',
+  data: {
+    "message":"mess",
+    "isOk" : true,
+    "c1":"class1",
+    "c3":"class3",
+    "colorParam" :"red",
+    "fontSizeParam":50
+  }
+})
+
+
+</script>
+</body>
+</html>
