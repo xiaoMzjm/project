@@ -8,35 +8,38 @@
 </head>
 <body>
 <div id="app">
+    <!-- 组件一 -->
     <runoob message="hello"></runoob>
 
-    <!-- 动态props -->
+    <!-- 组件二，传参 -->
     <runoob2 v-bind:message="parentMsg"></runoob2>
-    <input v-model="parentMsg">
 
-    <runoob3 v-bind:propF="parentMsg"></runoob3>
+    <!-- 组件三，传参+验证  propa 后面的a不能是大写！原因不明 -->
+    <runoob3 v-bind:propa="parentMsg"></runoob3>
+
+    <input v-model="parentMsg">
 </div>
 
 <script>
-// 注册全局组件
+// 创建并注册全局组件
 Vue.component('runoob', {
   template: '<h1>自定义组件!{{message}}</h1>',
   // 申明组件的入参
   props:['message']
 })
 
-//  局部组件
+//  定义局部组件
 var Child = {
   template: '<h1>自定义组件!{{message}}</h1>',
   props:['message']
 }
 
-//  局部组件（带验证）
+//  定义局部组件（带验证）
 var Child2 = {
-  template: '<h1>自定义组件!{{propF}}</h1>',
+  template: '<h1>自定义组件!{{propa}}</h1>',
   props:{
     // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
-    propA: Number,
+    propa: Number,
     // 多个可能的类型
     propB: [String, Number],
     // 必填的字符串
@@ -71,12 +74,12 @@ var Child2 = {
 new Vue({
   el: '#app',
   data:{
-    "parentMsg":"abc"
+    "parentMsg":123
   },
-  components: {
-    // <runoob> 将只在父模板可用
-    'runoob2': Child,
 
+  // 引入局部组件
+  components: {
+    'runoob2': Child,
     'runoob3': Child2
   }
 })
